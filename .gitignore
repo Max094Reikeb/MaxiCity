@@ -10,6 +10,8 @@
 **/.idea/shelf
 .idea/
 .settings/
+out/
+/out/
 
 #FILES FOR GRADLE
 #=======================
