@@ -1,17 +1,12 @@
 package net.reikeb.maxicity;
 
-import net.reikeb.maxicity.commands.BalanceCommand;
-import net.reikeb.maxicity.commands.PluginsOverrideCommand;
-import net.reikeb.maxicity.commands.SocialSpyCommand;
-import net.reikeb.maxicity.commands.TeamChatCommand;
+import net.reikeb.maxicity.commands.*;
 import net.reikeb.maxicity.listeners.players.JoinQuit;
-import net.reikeb.maxicity.managers.BalanceManager;
-import net.reikeb.maxicity.managers.PlayerTeamManager;
-import net.reikeb.maxicity.managers.SocialSpyManager;
-import net.reikeb.maxicity.managers.TeamChatManager;
+import net.reikeb.maxicity.managers.*;
 import net.reikeb.maxicity.misc.CityUtils;
 import net.reikeb.maxicity.misc.Version;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -45,11 +40,14 @@ public class MaxiCity extends JavaPlugin {
         TeamChatManager teamChatManager = new TeamChatManager(this);
         SocialSpyManager socialSpyManager = new SocialSpyManager(this);
         PlayerTeamManager playerTeamManager = new PlayerTeamManager(this);
+        NickManager nickManager = new NickManager(this);
         try {
             balanceManager.saveBalanceFile();
             teamChatManager.saveTeamChatFile();
             socialSpyManager.saveSocialSpyFile();
             playerTeamManager.saveTeamFile();
+            nickManager.saveNickedPlayersFiles();
+            nickManager.saveNicknamesFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,6 +76,16 @@ public class MaxiCity extends JavaPlugin {
         } else
             getLogger().info("Using hooks for " + version);
 
+        /**
+         * Check if Holographic Displays is present
+         */
+        if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
+            getLogger().severe("*** HolographicDisplays is not installed or not enabled. ***");
+            getLogger().severe("*** Disabling MaxiCity! ***");
+            this.setEnabled(false);
+            return;
+        }
+
         instance = this;
 
         /**
@@ -88,11 +96,14 @@ public class MaxiCity extends JavaPlugin {
         TeamChatManager teamChatManager = new TeamChatManager(this);
         SocialSpyManager socialSpyManager = new SocialSpyManager(this);
         PlayerTeamManager playerTeamManager = new PlayerTeamManager(this);
+        NickManager nickManager = new NickManager(this);
         try {
             balanceManager.loadBalanceFile();
             teamChatManager.loadTeamChatFile();
             socialSpyManager.loadSocialSpyFile();
             playerTeamManager.loadTeamFile();
+            nickManager.loadNickedPlayersFile();
+            nickManager.loadNicknamesFile();
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
@@ -141,6 +152,7 @@ public class MaxiCity extends JavaPlugin {
         // Other commands
         new TeamChatCommand(this);
         new SocialSpyCommand(this);
+        new HologramCommand(this);
 
         /**
          * Register all listeners
@@ -157,5 +169,6 @@ public class MaxiCity extends JavaPlugin {
         new TeamChatManager(this);
         new SocialSpyManager(this);
         new PlayerTeamManager(this);
+        new NickManager(this);
     }
 }

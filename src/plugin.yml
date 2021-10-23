@@ -10,3 +10,5 @@ commands:
     description: Manages your team chat
   socialspy:
     description: Allows you to spy on people's commands
+  holo:
+    description: Setup the score hologram

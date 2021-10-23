@@ -1,6 +1,7 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
+import net.reikeb.maxicity.managers.NickManager;
 import net.reikeb.maxicity.managers.PlayerTeamManager;
 import net.reikeb.maxicity.managers.SocialSpyManager;
 import net.reikeb.maxicity.managers.TeamChatManager;
@@ -46,25 +47,29 @@ public class JoinQuit implements Listener {
             playerTeamManager.setPlayerTeam(player, config.getString("coruscant_file"));
             // add player to nametag "coruscant"
         }
-        // if {nick.%player%} is true:
-        // set player tab name to "%{team.%player%.name}% %{nick.%player%.pseudo}%"
-        // else
-        // set player tab name to "%{team.%player%.name}% %player%"
+
+        NickManager nickManager = new NickManager(MaxiCity.getInstance());
+        if (nickManager.isPlayerNicked(player)) {
+            player.setDisplayName(playerTeamManager.getPlayerTeam(player) + " " + nickManager.getPlayerNickname(player));
+        } else {
+            player.setDisplayName(playerTeamManager.getPlayerTeam(player) + " " + player.getDisplayName());
+        }
+
         // if {join.%player%.first} is not set
-        // {
-        // add player to {playerList::*}
-        // broadcast "&a%player% %{first_join_message}% %player%"
+        //     add player to {playerList::*}
+        //     broadcast "&a%player% %{first_join_message}% %player%"
         player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 5));
-        // set {join.%player%.first} to player's location
-        // teleport player to {spawn.world.point}
-        // }
+        //     set {join.%player%.first} to player's location
+        //     teleport player to {spawn.world.point}
         // message "%{join_message}% %player%"
-        // set {join.%player%.first} to player's location
+        player.sendMessage(MaxiCity.chat(config.get("join_message") + " " + e.getPlayer()));
+        e.setJoinMessage(MaxiCity.chat("&2[&c+&2] " + playerTeamManager.getPlayerTeam(e.getPlayer()) + " " + e.getPlayer()));
     }
 
     @EventHandler
     private void onLeave(PlayerQuitEvent e) {
-        e.setQuitMessage(null);
+        PlayerTeamManager playerTeamManager = new PlayerTeamManager(MaxiCity.getInstance());
+        e.setQuitMessage(MaxiCity.chat("&9[&4-&9] " + playerTeamManager.getPlayerTeam(e.getPlayer()) + " " + e.getPlayer()));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
