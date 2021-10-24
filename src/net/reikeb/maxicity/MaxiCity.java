@@ -1,6 +1,7 @@
 package net.reikeb.maxicity;
 
 import net.reikeb.maxicity.commands.*;
+import net.reikeb.maxicity.listeners.players.CommandChat;
 import net.reikeb.maxicity.listeners.players.JoinQuit;
 import net.reikeb.maxicity.managers.*;
 import net.reikeb.maxicity.misc.CityUtils;
@@ -47,6 +48,7 @@ public class MaxiCity extends JavaPlugin {
         PlayerTeamManager playerTeamManager = new PlayerTeamManager(this);
         NickManager nickManager = new NickManager(this);
         JoinManager joinManager = new JoinManager(this);
+        MuteManager muteManager = new MuteManager(this);
         try {
             balanceManager.saveBalanceFile();
             teamChatManager.saveTeamChatFile();
@@ -55,6 +57,8 @@ public class MaxiCity extends JavaPlugin {
             nickManager.saveNickedPlayersFiles();
             nickManager.saveNicknamesFile();
             joinManager.saveJoinedPlayerFile();
+            muteManager.saveMutedPlayersFile();
+            muteManager.saveMutedReasonsFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,6 +109,7 @@ public class MaxiCity extends JavaPlugin {
         PlayerTeamManager playerTeamManager = new PlayerTeamManager(this);
         NickManager nickManager = new NickManager(this);
         JoinManager joinManager = new JoinManager(this);
+        MuteManager muteManager = new MuteManager(this);
         try {
             balanceManager.loadBalanceFile();
             teamChatManager.loadTeamChatFile();
@@ -113,6 +118,8 @@ public class MaxiCity extends JavaPlugin {
             nickManager.loadNickedPlayersFile();
             nickManager.loadNicknamesFile();
             joinManager.loadJoinedPlayerFile();
+            muteManager.loadMutedReasonsFile();
+            muteManager.loadMutedPlayersFile();
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
@@ -126,6 +133,7 @@ public class MaxiCity extends JavaPlugin {
         this.getConfig().set("first_join_message", "&aa rejoint la Cité des Étoiles pour la première fois ! Bienvenue");
         this.getConfig().set("join_message", "&aBienvenue dans la Cité des Étoiles");
         this.getConfig().set("cite_coos", "&aLa Cité se trouve en 185 73 282");
+        this.getConfig().set("chat_enabled", true);
         this.getConfig().set("empereur", "&4[Empereur] ");
         this.getConfig().set("grand_amiral", "&6[Grand Amiral] ");
         this.getConfig().set("naboo_file", "&2[Naboo] ");
@@ -169,6 +177,7 @@ public class MaxiCity extends JavaPlugin {
         getLogger().info("Registering listeners...");
         PluginManager p = getServer().getPluginManager();
         p.registerEvents(new JoinQuit(), this);
+        p.registerEvents(new CommandChat(), this);
 
         /**
          * Register all managers
@@ -180,5 +189,6 @@ public class MaxiCity extends JavaPlugin {
         new PlayerTeamManager(this);
         new NickManager(this);
         new JoinManager(this);
+        new MuteManager(this);
     }
 }
