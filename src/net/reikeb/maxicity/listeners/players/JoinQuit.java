@@ -19,7 +19,6 @@ public class JoinQuit implements Listener {
 
     @EventHandler
     private void onJoin(PlayerJoinEvent e) {
-        e.setJoinMessage(null);
         Player player = e.getPlayer();
         FileConfiguration config = MaxiCity.getInstance().getConfig();
 

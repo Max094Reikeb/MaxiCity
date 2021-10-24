@@ -18,7 +18,7 @@ public class PluginsOverrideCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
-            sender.sendMessage("Plugins (3): &aMaxiCity-core, MaxiCity-events, MaxiCity-moderation");
+            sender.sendMessage(MaxiCity.chat("Plugins (3): &aMaxiCity-core, MaxiCity-events, MaxiCity-moderation"));
         }
 
         return true;
