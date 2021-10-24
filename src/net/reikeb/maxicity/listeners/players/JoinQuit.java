@@ -1,10 +1,7 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.managers.NickManager;
-import net.reikeb.maxicity.managers.PlayerTeamManager;
-import net.reikeb.maxicity.managers.SocialSpyManager;
-import net.reikeb.maxicity.managers.TeamChatManager;
+import net.reikeb.maxicity.managers.*;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -55,14 +52,15 @@ public class JoinQuit implements Listener {
             player.setDisplayName(playerTeamManager.getPlayerTeam(player) + " " + player.getDisplayName());
         }
 
-        // if {join.%player%.first} is not set
-        //     add player to {playerList::*}
-        //     broadcast "&a%player% %{first_join_message}% %player%"
-        player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 5));
-        //     set {join.%player%.first} to player's location
-        //     teleport player to {spawn.world.point}
-        // message "%{join_message}% %player%"
-        player.sendMessage(MaxiCity.chat(config.get("join_message") + " " + e.getPlayer()));
+        JoinManager joinManager = new JoinManager(MaxiCity.getInstance());
+        if (!joinManager.hasPlayerJoined(player)) {
+            // add player to {playerList::*}
+            MaxiCity.broadcast(player, "&a" + player.getDisplayName() + " &a" + config.get("first_join_message") + " &a" + player.getDisplayName());
+            player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 5));
+            joinManager.setJoinedPlayer(player, true);
+            // teleport player to world spawn
+        }
+        player.sendMessage(MaxiCity.chat("&a" + config.get("join_message") + " &a" + e.getPlayer()));
         e.setJoinMessage(MaxiCity.chat("&2[&c+&2] " + playerTeamManager.getPlayerTeam(e.getPlayer()) + " " + e.getPlayer()));
     }
 

@@ -9,6 +9,7 @@ import net.reikeb.maxicity.misc.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,6 +31,10 @@ public class MaxiCity extends JavaPlugin {
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 
+    public static void broadcast(Player p, String s) {
+        p.getServer().broadcastMessage(chat(s));
+    }
+
     @Override
     public void onDisable() {
         /**
@@ -41,6 +46,7 @@ public class MaxiCity extends JavaPlugin {
         SocialSpyManager socialSpyManager = new SocialSpyManager(this);
         PlayerTeamManager playerTeamManager = new PlayerTeamManager(this);
         NickManager nickManager = new NickManager(this);
+        JoinManager joinManager = new JoinManager(this);
         try {
             balanceManager.saveBalanceFile();
             teamChatManager.saveTeamChatFile();
@@ -48,6 +54,7 @@ public class MaxiCity extends JavaPlugin {
             playerTeamManager.saveTeamFile();
             nickManager.saveNickedPlayersFiles();
             nickManager.saveNicknamesFile();
+            joinManager.saveJoinedPlayerFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,6 +104,7 @@ public class MaxiCity extends JavaPlugin {
         SocialSpyManager socialSpyManager = new SocialSpyManager(this);
         PlayerTeamManager playerTeamManager = new PlayerTeamManager(this);
         NickManager nickManager = new NickManager(this);
+        JoinManager joinManager = new JoinManager(this);
         try {
             balanceManager.loadBalanceFile();
             teamChatManager.loadTeamChatFile();
@@ -104,6 +112,7 @@ public class MaxiCity extends JavaPlugin {
             playerTeamManager.loadTeamFile();
             nickManager.loadNickedPlayersFile();
             nickManager.loadNicknamesFile();
+            joinManager.loadJoinedPlayerFile();
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
@@ -170,5 +179,6 @@ public class MaxiCity extends JavaPlugin {
         new SocialSpyManager(this);
         new PlayerTeamManager(this);
         new NickManager(this);
+        new JoinManager(this);
     }
 }
