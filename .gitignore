@@ -37,3 +37,4 @@ run/
 Thumbs.db
 debug.log
 hs_err_pid*
+.jar
