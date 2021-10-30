@@ -1,7 +1,6 @@
 package net.reikeb.maxicity.misc;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.managers.BalanceManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -46,7 +45,7 @@ public class CityUtils {
         if (nbrEmeralds == 0) {
             player.sendMessage(MaxiCity.chat("&aYou don't have any emeralds on you!"));
         } else {
-            BalanceManager manager = new BalanceManager(MaxiCity.getInstance());
+            Maps manager = new Maps(MaxiCity.getInstance());
             FileConfiguration config = MaxiCity.getInstance().getConfig();
 
             manager.addBalanceToPlayer(player, nbrEmeralds);

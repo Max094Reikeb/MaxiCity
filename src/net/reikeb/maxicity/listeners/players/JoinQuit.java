@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.managers.*;
+import net.reikeb.maxicity.misc.Maps;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,52 +21,49 @@ public class JoinQuit implements Listener {
     private void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         FileConfiguration config = MaxiCity.getInstance().getConfig();
+        Maps manager = new Maps(MaxiCity.getInstance());
 
-        TeamChatManager teamChatManager = new TeamChatManager(MaxiCity.getInstance());
-        teamChatManager.setPlayerTeamChat(player, false);
-        SocialSpyManager socialSpyManager = new SocialSpyManager(MaxiCity.getInstance());
-        socialSpyManager.setPlayerSocialSpy(player, false);
+        manager.setPlayerTeamChat(player, false);
+        manager.setPlayerSocialSpy(player, false);
 
         player.setPlayerListHeaderFooter(config.getString("t_head"), config.getString("t_foot"));
 
-        PlayerTeamManager playerTeamManager = new PlayerTeamManager(MaxiCity.getInstance());
         if (player.hasPermission("team.naboo")) {
-            playerTeamManager.setPlayerTeam(player, config.getString("naboo_file"));
+            manager.setPlayerTeam(player, config.getString("first_team"));
             // add player to nametag "naboo"
-        } else if (player.hasPermission("team.alderaan")) {
-            playerTeamManager.setPlayerTeam(player, config.getString("alderaan_file"));
-            // add player to nametag "alderaan"
         } else if (player.hasPermission("team.tatooine")) {
-            playerTeamManager.setPlayerTeam(player, config.getString("tatooine_file"));
+            manager.setPlayerTeam(player, config.getString("second_team"));
             // add player to nametag "tatooine"
-        } else if (player.hasPermission("coruscant_file")) {
-            playerTeamManager.setPlayerTeam(player, config.getString("coruscant_file"));
+        } else if (player.hasPermission("team.alderaan")) {
+            manager.setPlayerTeam(player, config.getString("third_team"));
+            // add player to nametag "alderaan"
+        } else if (player.hasPermission("team.coruscant")) {
+            manager.setPlayerTeam(player, config.getString("fourth_team"));
             // add player to nametag "coruscant"
         }
 
-        NickManager nickManager = new NickManager(MaxiCity.getInstance());
-        if (nickManager.isPlayerNicked(player)) {
-            player.setDisplayName(playerTeamManager.getPlayerTeam(player) + " " + nickManager.getPlayerNickname(player));
-        } else {
-            player.setDisplayName(playerTeamManager.getPlayerTeam(player) + " " + player.getDisplayName());
-        }
-
-        JoinManager joinManager = new JoinManager(MaxiCity.getInstance());
-        if (!joinManager.hasPlayerJoined(player)) {
+        if (!manager.hasPlayerJoined(player)) {
             // add player to {playerList::*}
             MaxiCity.broadcast(player, "&a" + player.getDisplayName() + " &a" + config.get("first_join_message") + " &a" + player.getDisplayName());
             player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 5));
-            joinManager.setJoinedPlayer(player, true);
+            manager.setJoinedPlayer(player, true);
             // teleport player to world spawn
+        } else {
+            player.sendMessage(MaxiCity.chat("&a" + config.get("join_message") + " &a" + player.getDisplayName()));
+            if (manager.isPlayerNicked(player)) {
+                player.setDisplayName(manager.getPlayerTeam(player) + manager.getPlayerNickname(player));
+            } else {
+                player.setDisplayName(manager.getPlayerTeam(player) + player.getDisplayName());
+            }
         }
-        player.sendMessage(MaxiCity.chat("&a" + config.get("join_message") + " &a" + e.getPlayer()));
-        e.setJoinMessage(MaxiCity.chat("&2[&c+&2] " + playerTeamManager.getPlayerTeam(e.getPlayer()) + " " + e.getPlayer()));
+
+        e.setJoinMessage(MaxiCity.chat("&2[&c+&2] " + player.getDisplayName()));
     }
 
     @EventHandler
     private void onLeave(PlayerQuitEvent e) {
-        PlayerTeamManager playerTeamManager = new PlayerTeamManager(MaxiCity.getInstance());
-        e.setQuitMessage(MaxiCity.chat("&9[&4-&9] " + playerTeamManager.getPlayerTeam(e.getPlayer()) + " " + e.getPlayer()));
+        Maps manager = new Maps(MaxiCity.getInstance());
+        e.setQuitMessage(MaxiCity.chat("&9[&4-&9] " + e.getPlayer().getDisplayName()));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

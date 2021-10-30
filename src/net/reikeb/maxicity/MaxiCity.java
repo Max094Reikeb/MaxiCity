@@ -3,18 +3,19 @@ package net.reikeb.maxicity;
 import net.reikeb.maxicity.commands.*;
 import net.reikeb.maxicity.listeners.players.CommandChat;
 import net.reikeb.maxicity.listeners.players.JoinQuit;
-import net.reikeb.maxicity.managers.*;
 import net.reikeb.maxicity.misc.CityUtils;
 import net.reikeb.maxicity.misc.Version;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginManager;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
+import java.io.File;
 
 public class MaxiCity extends JavaPlugin {
 
@@ -38,30 +39,6 @@ public class MaxiCity extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        /**
-         * Save managers
-         */
-        getLogger().info("Saving managers...");
-        BalanceManager balanceManager = new BalanceManager(this);
-        TeamChatManager teamChatManager = new TeamChatManager(this);
-        SocialSpyManager socialSpyManager = new SocialSpyManager(this);
-        PlayerTeamManager playerTeamManager = new PlayerTeamManager(this);
-        NickManager nickManager = new NickManager(this);
-        JoinManager joinManager = new JoinManager(this);
-        MuteManager muteManager = new MuteManager(this);
-        try {
-            balanceManager.saveBalanceFile();
-            teamChatManager.saveTeamChatFile();
-            socialSpyManager.saveSocialSpyFile();
-            playerTeamManager.saveTeamFile();
-            nickManager.saveNickedPlayersFiles();
-            nickManager.saveNicknamesFile();
-            joinManager.saveJoinedPlayerFile();
-            muteManager.saveMutedPlayersFile();
-            muteManager.saveMutedReasonsFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         /**
          * Saving config files
@@ -100,46 +77,23 @@ public class MaxiCity extends JavaPlugin {
         instance = this;
 
         /**
-         * Load managers
-         */
-        getLogger().info("Loading managers...");
-        BalanceManager balanceManager = new BalanceManager(this);
-        TeamChatManager teamChatManager = new TeamChatManager(this);
-        SocialSpyManager socialSpyManager = new SocialSpyManager(this);
-        PlayerTeamManager playerTeamManager = new PlayerTeamManager(this);
-        NickManager nickManager = new NickManager(this);
-        JoinManager joinManager = new JoinManager(this);
-        MuteManager muteManager = new MuteManager(this);
-        try {
-            balanceManager.loadBalanceFile();
-            teamChatManager.loadTeamChatFile();
-            socialSpyManager.loadSocialSpyFile();
-            playerTeamManager.loadTeamFile();
-            nickManager.loadNickedPlayersFile();
-            nickManager.loadNicknamesFile();
-            joinManager.loadJoinedPlayerFile();
-            muteManager.loadMutedReasonsFile();
-            muteManager.loadMutedPlayersFile();
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
-
-        /**
          * Load config file
          */
         getLogger().info("Loading and setting up config files...");
-        this.getConfig().set("t_head", "&b&lBienvenue sur la Cité des Étoiles !");
-        this.getConfig().set("t_foot", "&1Twitter - @CiteDesEtoiles");
-        this.getConfig().set("first_join_message", "&aa rejoint la Cité des Étoiles pour la première fois ! Bienvenue");
-        this.getConfig().set("join_message", "&aBienvenue dans la Cité des Étoiles");
-        this.getConfig().set("cite_coos", "&aLa Cité se trouve en 185 73 282");
-        this.getConfig().set("chat_enabled", true);
-        this.getConfig().set("empereur", "&4[Empereur] ");
-        this.getConfig().set("grand_amiral", "&6[Grand Amiral] ");
-        this.getConfig().set("naboo_file", "&2[Naboo] ");
-        this.getConfig().set("tatooine_file", "&e[Tatooine] ");
-        this.getConfig().set("alderaan_file", "&3[Alderaan] ");
-        this.getConfig().set("coruscant_file", "&d[Coruscant] ");
+        if (!new File(this.getDataFolder(), "config.yml").exists()) {
+            this.getConfig().set("t_head", "§b§lSome random tab header");
+            this.getConfig().set("t_foot", "§1Some random tab footer");
+            this.getConfig().set("first_join_message", "&ajoined the city for the first time! Welcome");
+            this.getConfig().set("join_message", "&aWelcome back to the city");
+            this.getConfig().set("cite_coos", "&aThe city is located in 0 0 0");
+            this.getConfig().set("chat_enabled", true);
+            this.getConfig().set("admin", "&4[Admin] ");
+            this.getConfig().set("moderator", "&6[Moderator] ");
+            this.getConfig().set("first_team", "&2[Naboo] ");
+            this.getConfig().set("second_team", "&e[Tatooine] ");
+            this.getConfig().set("third_team", "&3[Alderaan] ");
+            this.getConfig().set("fourth_team", "&d[Coruscant] ");
+        }
         this.saveConfig();
         reloadConfig();
 
@@ -152,43 +106,41 @@ public class MaxiCity extends JavaPlugin {
          * Register all commands
          */
         getLogger().info("Registering commands...");
-        // Override /plugins commands
-        getCommand("plugins").setExecutor(new PluginsOverrideCommand(this));
-        getCommand("pl").setExecutor(new PluginsOverrideCommand(this));
-        getCommand("about").setExecutor(new PluginsOverrideCommand(this));
-        getCommand("ver").setExecutor(new PluginsOverrideCommand(this));
-        getCommand("version").setExecutor(new PluginsOverrideCommand(this));
-        getCommand("bukkit:pl").setExecutor(new PluginsOverrideCommand(this));
-        getCommand("bukkit:plugin").setExecutor(new PluginsOverrideCommand(this));
-        getCommand("bukkit:ver").setExecutor(new PluginsOverrideCommand(this));
-        getCommand("bukkit:version").setExecutor(new PluginsOverrideCommand(this));
-
-        // Balance commands
-        new BalanceCommand(this);
-
-        // Other commands
-        new TeamChatCommand(this);
-        new SocialSpyCommand(this);
-        new HologramCommand(this);
+        registerCommand("plugins", new PluginsOverrideCommand(this));
+        registerCommand("pl", new PluginsOverrideCommand(this));
+        registerCommand("about", new PluginsOverrideCommand(this));
+        registerCommand("ver", new PluginsOverrideCommand(this));
+        registerCommand("version", new PluginsOverrideCommand(this));
+        registerCommand("balance", new BalanceCommand(this));
+        registerCommand("teamchat", new TeamChatCommand(this));
+        registerCommand("socialspy", new SocialSpyCommand(this));
+        registerCommand("holo", new HologramCommand(this));
+        registerCommand("mute", new MuteCommand(this));
+        registerCommand("vanish", new VanishCommand(this));
 
         /**
          * Register all listeners
          */
         getLogger().info("Registering listeners...");
-        PluginManager p = getServer().getPluginManager();
-        p.registerEvents(new JoinQuit(), this);
-        p.registerEvents(new CommandChat(), this);
+        registerListener(new JoinQuit());
+        registerListener(new CommandChat());
+    }
 
-        /**
-         * Register all managers
-         */
-        getLogger().info("Registering managers...");
-        new BalanceManager(this);
-        new TeamChatManager(this);
-        new SocialSpyManager(this);
-        new PlayerTeamManager(this);
-        new NickManager(this);
-        new JoinManager(this);
-        new MuteManager(this);
+    private boolean registerCommand(String name, CommandExecutor executor) {
+        try {
+            PluginCommand command = getCommand(name);
+            command.setExecutor(executor);
+
+            getLogger().info("Registered command §b/" + name);
+            return true;
+        } catch (Exception e) {
+            getLogger().severe("Can't register /" + name + " command!");
+            return false;
+        }
+    }
+
+    private void registerListener(Listener listener) {
+        getLogger().info("Registered listener §b" + listener.getClass().getSimpleName());
+        getServer().getPluginManager().registerEvents(listener, getInstance());
     }
 }

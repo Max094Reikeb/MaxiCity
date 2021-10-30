@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.commands;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.managers.SocialSpyManager;
+import net.reikeb.maxicity.misc.Maps;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -21,12 +21,12 @@ public class SocialSpyCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("ee.socialSpy")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(sender.getName());
-            SocialSpyManager socialSpyManager = new SocialSpyManager(plugin);
-            if (socialSpyManager.getPlayerSocialSpy(player)) {
-                socialSpyManager.setPlayerSocialSpy(player, false);
+            Maps manager = new Maps(plugin);
+            if (manager.getPlayerSocialSpy(player)) {
+                manager.setPlayerSocialSpy(player, false);
                 sender.sendMessage(MaxiCity.chat("&f[&4SocialSpy&f] &cSocialSpy has been desactivated!"));
-            } else if (!socialSpyManager.getPlayerSocialSpy(player)) {
-                socialSpyManager.setPlayerSocialSpy(player, true);
+            } else if (!manager.getPlayerSocialSpy(player)) {
+                manager.setPlayerSocialSpy(player, true);
                 sender.sendMessage(MaxiCity.chat("&f[&4SocialSpy&f] &2SocialSpy has been activated!"));
             } else {
                 sender.sendMessage(MaxiCity.chat("&cSomething went horribly wrong. Send a message to the plugin's author."));
