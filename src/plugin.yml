@@ -2,13 +2,40 @@ name: MaxiCity
 main: net.reikeb.maxicity.MaxiCity
 version: 1.0
 author: Max094_Reikeb
+api-version: 1.17
+softdepend: [HolographicDisplays]
 
 commands:
+  plugins:
+    description: Lists the plugins installed on the server
+    usage: /plugins
+  pl:
+    description: Lists the plugins installed on the server
+    usage: /pl
+  about:
+    description: Lists the plugins installed on the server
+    usage: /about
+  ver:
+    description: Lists the plugins installed on the server
+    usage: /ver
+  version:
+    description: Lists the plugins installed on the server
+    usage: /version
   balance:
     description: Manages a player's balance
+    usage: /balance <add:remove:set> <player> <amount>
   teamchat:
     description: Manages your team chat
+    usage: /teamchat
   socialspy:
     description: Allows you to spy on people's commands
+    usage: /socialspy
   holo:
     description: Setup the score hologram
+    usage: /holo <create:set:reload:delete>
+  mute:
+    description: Mutes a player
+    usage: /mute
+  vanish:
+    description: Hides you from other players
+    usage: /vanish
