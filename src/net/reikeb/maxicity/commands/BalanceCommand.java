@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.commands;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.misc.Maps;
+import net.reikeb.maxicity.datas.PlayerManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -34,7 +34,7 @@ public class BalanceCommand implements CommandExecutor {
                     sender.sendMessage(MaxiCity.chat("/balance <balance> <player>"));
                 }
             } else if (args.length == 2) {
-                Maps manager = new Maps(plugin);
+                PlayerManager manager = new PlayerManager(plugin);
                 @SuppressWarnings("deprecation")
                 OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
                 if (args[0].equalsIgnoreCase("balance")) {
@@ -48,7 +48,7 @@ public class BalanceCommand implements CommandExecutor {
             } else if (args.length == 3) {
                 @SuppressWarnings("deprecation")
                 int amount = Integer.parseInt(args[2]);
-                Maps manager = new Maps(plugin);
+                PlayerManager manager = new PlayerManager(plugin);
                 OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
                 if (args[0].equalsIgnoreCase("add")) {
                     if (p.isOnline()) {

@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.misc.Maps;
+import net.reikeb.maxicity.datas.PlayerManager;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ public class CommandChat implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         FileConfiguration config = MaxiCity.getInstance().getConfig();
-        Maps manager = new Maps(MaxiCity.getInstance());
+        PlayerManager manager = new PlayerManager(MaxiCity.getInstance());
 
         if (config.getBoolean("chat_enabled")) {
             event.setCancelled(true);

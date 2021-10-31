@@ -1,6 +1,8 @@
 package net.reikeb.maxicity;
 
 import net.reikeb.maxicity.commands.*;
+import net.reikeb.maxicity.datas.DataManager;
+import net.reikeb.maxicity.datas.PlayerManager;
 import net.reikeb.maxicity.listeners.players.CommandChat;
 import net.reikeb.maxicity.listeners.players.JoinQuit;
 import net.reikeb.maxicity.misc.CityUtils;
@@ -23,7 +25,7 @@ public class MaxiCity extends JavaPlugin {
     public static Version version;
 
     public FileConfiguration config;
-    public CityUtils.DataManager data;
+    public DataManager data;
 
     public static MaxiCity getInstance() {
         return instance;
@@ -44,6 +46,8 @@ public class MaxiCity extends JavaPlugin {
          * Saving config files
          */
         getLogger().info("Saving config files...");
+        PlayerManager manager = new PlayerManager(getInstance());
+        manager.saveHashMap();
         this.saveConfig();
 
         getLogger().info("Disabling plugin...");
@@ -100,7 +104,9 @@ public class MaxiCity extends JavaPlugin {
         // Setting up config
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
-        this.data = new CityUtils.DataManager(this);
+        this.data = new DataManager(this);
+        PlayerManager manager = new PlayerManager(getInstance());
+        manager.loadHashMap();
 
         /**
          * Register all commands

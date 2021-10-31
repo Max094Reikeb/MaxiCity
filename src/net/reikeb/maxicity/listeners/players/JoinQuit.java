@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.misc.Maps;
+import net.reikeb.maxicity.datas.PlayerManager;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,7 +21,7 @@ public class JoinQuit implements Listener {
     private void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         FileConfiguration config = MaxiCity.getInstance().getConfig();
-        Maps manager = new Maps(MaxiCity.getInstance());
+        PlayerManager manager = new PlayerManager(MaxiCity.getInstance());
 
         manager.setPlayerTeamChat(player, false);
         manager.setPlayerSocialSpy(player, false);
@@ -62,7 +62,6 @@ public class JoinQuit implements Listener {
 
     @EventHandler
     private void onLeave(PlayerQuitEvent e) {
-        Maps manager = new Maps(MaxiCity.getInstance());
         e.setQuitMessage(MaxiCity.chat("&9[&4-&9] " + e.getPlayer().getDisplayName()));
     }
 

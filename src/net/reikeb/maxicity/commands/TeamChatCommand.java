@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.commands;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.misc.Maps;
+import net.reikeb.maxicity.datas.PlayerManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -21,7 +21,7 @@ public class TeamChatCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("ee.teamChat")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(sender.getName());
-            Maps manager = new Maps(plugin);
+            PlayerManager manager = new PlayerManager(plugin);
             if (manager.getPlayerTeamChat(player)) {
                 manager.setPlayerTeamChat(player, false);
                 sender.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &Team chat has been desactivated!"));
