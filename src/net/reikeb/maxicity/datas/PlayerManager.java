@@ -45,6 +45,7 @@ public class PlayerManager {
     }
 
     public void setPlayerBalance(OfflinePlayer p, int amount) {
+        if (playerDataMap.get(p.getUniqueId()) == null) return;
         playerDataMap.get(p.getUniqueId()).setBalance(amount);
     }
 
@@ -61,6 +62,10 @@ public class PlayerManager {
      */
     public void setJoinedPlayer(OfflinePlayer p, boolean status) {
         playerDataMap.get(p.getUniqueId()).setPlayerJoined(status);
+    }
+
+    public void setNewPlayer(OfflinePlayer p) {
+        playerDataMap.put(p.getUniqueId(), new PlayerData(false, false, false, false, false));
     }
 
     public boolean hasPlayerJoined(OfflinePlayer p) {
@@ -85,7 +90,11 @@ public class PlayerManager {
     }
 
     public boolean isPlayerMuted(OfflinePlayer p) {
-        return playerDataMap.get(p.getUniqueId()).isPlayerMuted();
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).isPlayerMuted();
+        } else {
+            return false;
+        }
     }
 
     public String getMutedPlayerReason(OfflinePlayer p) {
@@ -110,7 +119,11 @@ public class PlayerManager {
     }
 
     public boolean isPlayerNicked(OfflinePlayer p) {
-        return playerDataMap.get(p.getUniqueId()).isPlayerNicked();
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).isPlayerNicked();
+        } else {
+            return false;
+        }
     }
 
     public String getPlayerNickname(OfflinePlayer p) {

@@ -12,6 +12,15 @@ public class PlayerData {
     private boolean socialSpy;
     private boolean teamChat;
 
+    public PlayerData(boolean hasPlayerJoined, boolean isPlayerMuted, boolean isPlayerNicked, boolean socialSpy,
+                      boolean teamChat) {
+        this.hasPlayerJoined = hasPlayerJoined;
+        this.isPlayerMuted = isPlayerMuted;
+        this.isPlayerNicked = isPlayerNicked;
+        this.socialSpy = socialSpy;
+        this.teamChat = teamChat;
+    }
+
     public int getBalance() {
         return this.balance;
     }

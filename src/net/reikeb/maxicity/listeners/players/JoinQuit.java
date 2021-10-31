@@ -23,6 +23,8 @@ public class JoinQuit implements Listener {
         FileConfiguration config = MaxiCity.getInstance().getConfig();
         PlayerManager manager = new PlayerManager(MaxiCity.getInstance());
 
+        if (!manager.hasPlayerJoined(player)) manager.setNewPlayer(player);
+
         manager.setPlayerTeamChat(player, false);
         manager.setPlayerSocialSpy(player, false);
 
