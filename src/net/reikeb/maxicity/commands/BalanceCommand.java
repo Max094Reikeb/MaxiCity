@@ -28,7 +28,7 @@ public class BalanceCommand implements CommandExecutor {
                     sender.sendMessage(MaxiCity.chat("/balance <add> <player> <amount>"));
                 } else if (args[0].equalsIgnoreCase("remove")) {
                     sender.sendMessage(MaxiCity.chat("/balance <remove> <player> <amount>"));
-                } else if (args[1].equalsIgnoreCase("set")) {
+                } else if (args[0].equalsIgnoreCase("set")) {
                     sender.sendMessage(MaxiCity.chat("/balance <set> <player> <amount>"));
                 } else if (args[0].equalsIgnoreCase("balance")) {
                     sender.sendMessage(MaxiCity.chat("/balance <balance> <player>"));

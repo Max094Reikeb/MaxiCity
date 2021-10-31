@@ -48,7 +48,6 @@ public class MaxiCity extends JavaPlugin {
         getLogger().info("Saving config files...");
         PlayerManager manager = new PlayerManager(getInstance());
         manager.saveHashMap();
-        this.saveConfig();
 
         getLogger().info("Disabling plugin...");
         getServer().getScheduler().cancelTasks(this);

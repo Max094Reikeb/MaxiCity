@@ -16,20 +16,20 @@ public class PlayerManager {
     }
 
     public void saveHashMap() {
-        List<String> suuids = new ArrayList<>();
-        Set<UUID> uuidSet = playerDataMap.keySet();
-        for(UUID uuid : uuidSet) {
-            suuids.add(uuid.toString());
+        List<String> sUUIDs = new ArrayList<>();
+        Set<UUID> UUIDset = playerDataMap.keySet();
+        for(UUID uuid : UUIDset) {
+            sUUIDs.add(uuid.toString());
         }
-        plugin.getConfig().set("playerDataMap", suuids);
+        plugin.getConfig().set("playerDataMap", sUUIDs);
         plugin.saveConfig();
     }
 
     public void loadHashMap() {
-        List<String> suuids = plugin.getConfig().getStringList("playerDataMap");
-        if (suuids.isEmpty()) return;
-        for (String suuid : suuids) {
-            UUID uuid = UUID.fromString(suuid);
+        List<String> sUUIDs = plugin.getConfig().getStringList("playerDataMap");
+        if (sUUIDs.isEmpty()) return;
+        for (String sUUID : sUUIDs) {
+            UUID uuid = UUID.fromString(sUUID);
             playerDataMap.put(uuid, playerDataMap.get(uuid));
         }
     }
