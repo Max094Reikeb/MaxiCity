@@ -40,7 +40,7 @@ public class CityUtils {
         if (nbrEmeralds == 0) {
             player.sendMessage(MaxiCity.chat("&aYou don't have any emeralds on you!"));
         } else {
-            PlayerManager manager = new PlayerManager(MaxiCity.getInstance());
+            PlayerManager manager = MaxiCity.getInstance().getPlayerManager();
             FileConfiguration config = MaxiCity.getInstance().getConfig();
 
             manager.addBalanceToPlayer(player, nbrEmeralds);

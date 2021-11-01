@@ -8,7 +8,7 @@ import java.util.*;
 
 public class PlayerManager {
 
-    public final HashMap<UUID, PlayerData> playerDataMap = new HashMap<UUID, PlayerData>();
+    public static final HashMap<UUID, PlayerData> playerDataMap = new HashMap<UUID, PlayerData>();
     public MaxiCity plugin;
 
     public PlayerManager(MaxiCity plugin) {

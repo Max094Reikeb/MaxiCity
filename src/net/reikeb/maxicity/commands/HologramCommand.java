@@ -40,12 +40,12 @@ public class HologramCommand implements CommandExecutor {
                     sender.sendMessage(MaxiCity.chat("&aThe spawn point of the hologram has been successfully modified!"));
 
                 } else if (args[0].equalsIgnoreCase("reload")) {
-                    HologramsAPI.getHolograms(plugin).clear();
+                    HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
                     generateHolo(plugin, config);
                     sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully reloaded!"));
 
                 } else if (args[0].equalsIgnoreCase("delete")) {
-                    HologramsAPI.getHolograms(plugin).clear();
+                    HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
                     sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully deleted!"));
 
                 } else {

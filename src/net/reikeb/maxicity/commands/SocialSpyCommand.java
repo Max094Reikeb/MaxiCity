@@ -21,7 +21,7 @@ public class SocialSpyCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("ee.socialSpy")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(sender.getName());
-            PlayerManager manager = new PlayerManager(plugin);
+            PlayerManager manager = plugin.getPlayerManager();
             if (manager.getPlayerSocialSpy(player)) {
                 manager.setPlayerSocialSpy(player, false);
                 sender.sendMessage(MaxiCity.chat("&f[&4SocialSpy&f] &cSocialSpy has been desactivated!"));

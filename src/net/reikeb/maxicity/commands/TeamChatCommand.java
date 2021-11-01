@@ -21,13 +21,13 @@ public class TeamChatCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("ee.teamChat")) {
             OfflinePlayer player = Bukkit.getOfflinePlayer(sender.getName());
-            PlayerManager manager = new PlayerManager(plugin);
+            PlayerManager manager = plugin.getPlayerManager();
             if (manager.getPlayerTeamChat(player)) {
                 manager.setPlayerTeamChat(player, false);
-                sender.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &Team chat has been desactivated!"));
+                sender.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &cTeam chat has been unactivated!"));
             } else if (!manager.getPlayerTeamChat(player)) {
                 manager.setPlayerTeamChat(player, true);
-                sender.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &Team chat has been activated!"));
+                sender.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &aTeam chat has been activated!"));
             } else {
                 sender.sendMessage(MaxiCity.chat("&cSomething went horribly wrong. Send a message to the plugin's author."));
             }

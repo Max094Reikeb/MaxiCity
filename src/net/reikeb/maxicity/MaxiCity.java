@@ -26,6 +26,11 @@ public class MaxiCity extends JavaPlugin {
 
     public FileConfiguration config;
     public DataManager data;
+    public static PlayerManager playerManager;
+
+    public PlayerManager getPlayerManager() {
+        return playerManager;
+    }
 
     public static MaxiCity getInstance() {
         return instance;
@@ -46,8 +51,7 @@ public class MaxiCity extends JavaPlugin {
          * Saving config files
          */
         getLogger().info("Saving config files...");
-        PlayerManager manager = new PlayerManager(getInstance());
-        manager.saveHashMap();
+        playerManager.saveHashMap();
 
         getLogger().info("Disabling plugin...");
         getServer().getScheduler().cancelTasks(this);
@@ -99,18 +103,17 @@ public class MaxiCity extends JavaPlugin {
         }
         this.saveConfig();
         reloadConfig();
-
-        // Setting up config
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
+
         this.data = new DataManager(this);
-        PlayerManager manager = new PlayerManager(getInstance());
-        manager.loadHashMap();
+        playerManager = new PlayerManager(this);
+        playerManager.loadHashMap();
 
         /**
-         * Register all commands
+         * Register commands & listeners
          */
-        getLogger().info("Registering commands...");
+        getLogger().info("Registering commands & listeners...");
         registerCommand("plugins", new PluginsOverrideCommand(this));
         registerCommand("pl", new PluginsOverrideCommand(this));
         registerCommand("about", new PluginsOverrideCommand(this));
@@ -123,12 +126,10 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("mute", new MuteCommand(this));
         registerCommand("vanish", new VanishCommand(this));
 
-        /**
-         * Register all listeners
-         */
-        getLogger().info("Registering listeners...");
         registerListener(new JoinQuit());
         registerListener(new CommandChat());
+
+        getLogger().info("- Created by Max094_Reikeb -");
     }
 
     private boolean registerCommand(String name, CommandExecutor executor) {
@@ -136,7 +137,7 @@ public class MaxiCity extends JavaPlugin {
             PluginCommand command = getCommand(name);
             command.setExecutor(executor);
 
-            getLogger().info("Registered command §b/" + name);
+            getLogger().info("Registered command /" + name + " ✔️");
             return true;
         } catch (Exception e) {
             getLogger().severe("Can't register /" + name + " command!");
@@ -145,7 +146,7 @@ public class MaxiCity extends JavaPlugin {
     }
 
     private void registerListener(Listener listener) {
-        getLogger().info("Registered listener §b" + listener.getClass().getSimpleName());
+        getLogger().info("Registered listener " + listener.getClass().getSimpleName() + " ✔️");
         getServer().getPluginManager().registerEvents(listener, getInstance());
     }
 }

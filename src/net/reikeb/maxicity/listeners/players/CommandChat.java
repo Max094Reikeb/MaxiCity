@@ -15,7 +15,7 @@ public class CommandChat implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         FileConfiguration config = MaxiCity.getInstance().getConfig();
-        PlayerManager manager = new PlayerManager(MaxiCity.getInstance());
+        PlayerManager manager = MaxiCity.getInstance().getPlayerManager();
 
         if (config.getBoolean("chat_enabled")) {
             event.setCancelled(true);
