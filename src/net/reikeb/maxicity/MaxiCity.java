@@ -93,7 +93,6 @@ public class MaxiCity extends JavaPlugin {
             this.getConfig().set("first_join_message", "&ajoined the city for the first time! Welcome");
             this.getConfig().set("join_message", "&aWelcome back to the city");
             this.getConfig().set("cite_coos", "&aThe city is located in 0 0 0");
-            this.getConfig().set("chat_enabled", true);
             this.getConfig().set("admin", "&4[Admin] ");
             this.getConfig().set("moderator", "&6[Moderator] ");
             this.getConfig().set("first_team", "&2[Naboo] ");
@@ -101,6 +100,7 @@ public class MaxiCity extends JavaPlugin {
             this.getConfig().set("third_team", "&3[Alderaan] ");
             this.getConfig().set("fourth_team", "&d[Coruscant] ");
         }
+        this.getConfig().set("chat_enabled", true);
         this.saveConfig();
         reloadConfig();
         this.getConfig().options().copyDefaults(true);
