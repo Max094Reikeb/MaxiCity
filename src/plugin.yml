@@ -35,7 +35,13 @@ commands:
     usage: /holo <create:set:reload:delete>
   mute:
     description: Mutes a player
-    usage: /mute
+    usage: /mute <player> [<reason>]
+  unmute:
+    description: Unmutes a player
+    usage: /unmute <player>
+  mutereason:
+    description: Shows the mute reason of a player
+    usage: /mutereason <player>
   vanish:
     description: Hides you from other players
     usage: /vanish

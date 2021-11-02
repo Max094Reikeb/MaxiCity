@@ -124,6 +124,8 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("socialspy", new SocialSpyCommand(this));
         registerCommand("holo", new HologramCommand(this));
         registerCommand("mute", new MuteCommand(this));
+        registerCommand("unmute", new UnmuteCommand(this));
+        registerCommand("mutereason", new ReasonMuteCommand(this));
         registerCommand("vanish", new VanishCommand(this));
 
         registerListener(new JoinQuit());
