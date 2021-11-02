@@ -134,6 +134,7 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("vanish", new VanishCommand(this));
         registerCommand("broadcast", new BroadcastCommand(this));
         registerCommand("chat", new ChatCommand(this));
+        registerCommand("emeraldreset", new ResetCommand(this));
 
         registerListener(new JoinQuit());
         registerListener(new CommandChat());

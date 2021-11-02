@@ -51,4 +51,7 @@ commands:
   chat:
     description: Changes the chat status
     usage: /chat <on:off>
+  emeraldreset:
+    description: Reset all the emeralds
+    usage: /emeraldreset
 
