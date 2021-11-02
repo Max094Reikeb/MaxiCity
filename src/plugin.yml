@@ -45,3 +45,10 @@ commands:
   vanish:
     description: Hides you from other players
     usage: /vanish
+  broadcast:
+    description: Broadcasts a message
+    usage: /broadcast <message>
+  chat:
+    description: Changes the chat status
+    usage: /chat <on:off>
+

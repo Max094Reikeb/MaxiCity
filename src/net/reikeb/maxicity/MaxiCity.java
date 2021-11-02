@@ -10,6 +10,7 @@ import net.reikeb.maxicity.misc.Version;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Server;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -42,6 +43,10 @@ public class MaxiCity extends JavaPlugin {
 
     public static void broadcast(Player p, String s) {
         p.getServer().broadcastMessage(chat(s));
+    }
+
+    public static void broadcast(Server server, String s) {
+        server.broadcastMessage(chat(s));
     }
 
     @Override
@@ -127,6 +132,8 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("unmute", new UnmuteCommand(this));
         registerCommand("mutereason", new ReasonMuteCommand(this));
         registerCommand("vanish", new VanishCommand(this));
+        registerCommand("broadcast", new BroadcastCommand(this));
+        registerCommand("chat", new ChatCommand(this));
 
         registerListener(new JoinQuit());
         registerListener(new CommandChat());
