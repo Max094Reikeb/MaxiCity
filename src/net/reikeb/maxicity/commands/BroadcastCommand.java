@@ -16,21 +16,17 @@ public class BroadcastCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("ee.broadcast")) {
-            if (args.length == 0) {
-                sender.sendMessage(MaxiCity.chat("/broadcast <message>"));
-                return true;
-            } else {
-                StringBuilder message = new StringBuilder();
-                for (int i = 1; i <= args.length; i++) {
-                    message.append(args[i]);
-                }
-                MaxiCity.broadcast(plugin.getServer(), "&6&l----------");
-                MaxiCity.broadcast(plugin.getServer(), "&6&l" + message);
-                MaxiCity.broadcast(plugin.getServer(), "&6&l----------");
-            }
+        if (args.length == 0) {
+            sender.sendMessage(MaxiCity.chat("/broadcast <message>"));
+            return true;
         } else {
-            sender.sendMessage(MaxiCity.chat("&cYou do not have permission to execute this command"));
+            StringBuilder message = new StringBuilder();
+            for (int i = 1; i <= args.length; i++) {
+                message.append(args[i]);
+            }
+            MaxiCity.broadcast(plugin.getServer(), "&6&l----------");
+            MaxiCity.broadcast(plugin.getServer(), "&6&l" + message);
+            MaxiCity.broadcast(plugin.getServer(), "&6&l----------");
         }
         return true;
     }

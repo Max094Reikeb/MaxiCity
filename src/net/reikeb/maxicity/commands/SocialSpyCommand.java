@@ -19,20 +19,16 @@ public class SocialSpyCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("ee.socialSpy")) {
-            OfflinePlayer player = Bukkit.getOfflinePlayer(sender.getName());
-            PlayerManager manager = plugin.getPlayerManager();
-            if (manager.getPlayerSocialSpy(player)) {
-                manager.setPlayerSocialSpy(player, false);
-                sender.sendMessage(MaxiCity.chat("&f[&4SocialSpy&f] &cSocialSpy has been desactivated!"));
-            } else if (!manager.getPlayerSocialSpy(player)) {
-                manager.setPlayerSocialSpy(player, true);
-                sender.sendMessage(MaxiCity.chat("&f[&4SocialSpy&f] &2SocialSpy has been activated!"));
-            } else {
-                sender.sendMessage(MaxiCity.chat("&cSomething went horribly wrong. Send a message to the plugin's author."));
-            }
+        OfflinePlayer player = Bukkit.getOfflinePlayer(sender.getName());
+        PlayerManager manager = plugin.getPlayerManager();
+        if (manager.getPlayerSocialSpy(player)) {
+            manager.setPlayerSocialSpy(player, false);
+            sender.sendMessage(MaxiCity.chat("&f[&4SocialSpy&f] &cSocialSpy has been desactivated!"));
+        } else if (!manager.getPlayerSocialSpy(player)) {
+            manager.setPlayerSocialSpy(player, true);
+            sender.sendMessage(MaxiCity.chat("&f[&4SocialSpy&f] &2SocialSpy has been activated!"));
         } else {
-            sender.sendMessage(MaxiCity.chat("&cYou do not have permission to execute this command"));
+            sender.sendMessage(MaxiCity.chat("&cSomething went horribly wrong. Send a message to the plugin's author."));
         }
         return true;
     }
