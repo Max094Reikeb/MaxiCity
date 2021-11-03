@@ -1,5 +1,7 @@
 package net.reikeb.maxicity.datas;
 
+import org.bukkit.entity.Player;
+
 public class PlayerData {
 
     private int balance;
@@ -11,6 +13,7 @@ public class PlayerData {
     private String playerTeam;
     private boolean socialSpy;
     private boolean teamChat;
+    private Player chatPlayerReply;
 
     public PlayerData(boolean hasPlayerJoined, boolean isPlayerMuted, boolean isPlayerNicked, boolean socialSpy,
                       boolean teamChat) {
@@ -91,5 +94,13 @@ public class PlayerData {
 
     public void setTeamChat(boolean teamChat) {
         this.teamChat = teamChat;
+    }
+
+    public Player getChatPlayerReply() {
+        return this.chatPlayerReply;
+    }
+
+    public void setChatPlayerReply(Player chatPlayerReply) {
+        this.chatPlayerReply = chatPlayerReply;
     }
 }

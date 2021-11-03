@@ -3,6 +3,7 @@ package net.reikeb.maxicity.datas;
 import net.reikeb.maxicity.MaxiCity;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.*;
 
@@ -178,6 +179,22 @@ public class PlayerManager {
             return playerDataMap.get(p.getUniqueId()).getTeamChat();
         } else {
             return false;
+        }
+    }
+
+    /**
+     * Player reply methods
+     */
+    public void setChatPrivateReply(OfflinePlayer p, OfflinePlayer target) {
+        if ((playerDataMap.get(p.getUniqueId()) == null) || (!target.isOnline())) return;
+        playerDataMap.get(p.getUniqueId()).setChatPlayerReply((Player) target);
+    }
+
+    public Player getChatPrivateReply(OfflinePlayer p) {
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).getChatPlayerReply();
+        } else {
+            return null;
         }
     }
 }

@@ -54,4 +54,10 @@ commands:
   emeraldreset:
     description: Reset all the emeralds
     usage: /emeraldreset
-
+  msg:
+    description: Sends a private message to a user
+    aliases: [w, tell]
+    usage: /<msg:w:tell> <message>
+  r:
+    description: Replies to a private message
+    usage: /r <message>

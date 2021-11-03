@@ -1,6 +1,8 @@
 package net.reikeb.maxicity;
 
 import net.reikeb.maxicity.commands.*;
+import net.reikeb.maxicity.commands.message.MsgCommand;
+import net.reikeb.maxicity.commands.message.ReplyCommand;
 import net.reikeb.maxicity.datas.DataManager;
 import net.reikeb.maxicity.datas.PlayerManager;
 import net.reikeb.maxicity.listeners.players.CommandChat;
@@ -135,6 +137,8 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("broadcast", new BroadcastCommand(this));
         registerCommand("chat", new ChatCommand(this));
         registerCommand("emeraldreset", new ResetCommand(this));
+        registerCommand("msg", new MsgCommand(this));
+        registerCommand("r", new ReplyCommand(this));
 
         registerListener(new JoinQuit());
         registerListener(new CommandChat());
