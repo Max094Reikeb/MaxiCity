@@ -8,52 +8,61 @@ softdepend: [HolographicDisplays]
 commands:
   plugins:
     description: Lists the plugins installed on the server
+    aliases: [pl, about, ver, version]
     usage: /plugins
-  pl:
-    description: Lists the plugins installed on the server
-    usage: /pl
-  about:
-    description: Lists the plugins installed on the server
-    usage: /about
-  ver:
-    description: Lists the plugins installed on the server
-    usage: /ver
-  version:
-    description: Lists the plugins installed on the server
-    usage: /version
   balance:
     description: Manages a player's balance
     usage: /balance <add:remove:set> <player> <amount>
+    permission: ee.adminBalance
+    permission-message: &cYou do not have permission to execute this command!
   teamchat:
     description: Manages your team chat
     usage: /teamchat
   socialspy:
     description: Allows you to spy on people's commands
     usage: /socialspy
+    permission: ee.socialSpy
+    permission-message: &cYou do not have permission to execute this command!
   holo:
     description: Setup the score hologram
     usage: /holo <create:set:reload:delete>
+    permission: ee.setHolos
+    permission-message: &cYou do not have permission to execute this command!
   mute:
     description: Mutes a player
     usage: /mute <player> [<reason>]
+    permission: ee.mute
+    permission-message: &cYou do not have permission to execute this command!
   unmute:
     description: Unmutes a player
     usage: /unmute <player>
+    permission: ee.unmute
+    permission-message: &cYou do not have permission to execute this command!
   mutereason:
     description: Shows the mute reason of a player
     usage: /mutereason <player>
+    permission: ee.showmute
+    permission-message: &cYou do not have permission to execute this command!
   vanish:
     description: Hides you from other players
     usage: /vanish
+    permission: ee.vanish
+    permission-message: &cYou do not have permission to execute this command!
   broadcast:
     description: Broadcasts a message
     usage: /broadcast <message>
+    permission: ee.broadcast
+    permission-message: &cYou do not have permission to execute this command!
   chat:
     description: Changes the chat status
     usage: /chat <on:off>
+    permission: ee.chat
+    permission-message: &cYou do not have permission to execute this command!
   emeraldreset:
     description: Reset all the emeralds
     usage: /emeraldreset
+    permission: ee.reset
+    permission-message: &cYou do not have permission to execute this command!
   msg:
     description: Sends a private message to a user
     aliases: [w, tell]

@@ -3,6 +3,9 @@ package net.reikeb.maxicity;
 import net.reikeb.maxicity.commands.*;
 import net.reikeb.maxicity.commands.message.MsgCommand;
 import net.reikeb.maxicity.commands.message.ReplyCommand;
+import net.reikeb.maxicity.commands.mute.MuteCommand;
+import net.reikeb.maxicity.commands.mute.ReasonMuteCommand;
+import net.reikeb.maxicity.commands.mute.UnmuteCommand;
 import net.reikeb.maxicity.datas.DataManager;
 import net.reikeb.maxicity.datas.PlayerManager;
 import net.reikeb.maxicity.listeners.players.CommandChat;
@@ -122,10 +125,6 @@ public class MaxiCity extends JavaPlugin {
          */
         getLogger().info("Registering commands & listeners...");
         registerCommand("plugins", new PluginsOverrideCommand(this));
-        registerCommand("pl", new PluginsOverrideCommand(this));
-        registerCommand("about", new PluginsOverrideCommand(this));
-        registerCommand("ver", new PluginsOverrideCommand(this));
-        registerCommand("version", new PluginsOverrideCommand(this));
         registerCommand("balance", new BalanceCommand(this));
         registerCommand("teamchat", new TeamChatCommand(this));
         registerCommand("socialspy", new SocialSpyCommand(this));

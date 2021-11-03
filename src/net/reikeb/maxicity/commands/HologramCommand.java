@@ -22,39 +22,35 @@ public class HologramCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("ee.setHolos")) {
-            if (args.length == 0) {
+        if (args.length == 0) {
+            sender.sendMessage(MaxiCity.chat("/holo <create:set:reload:delete>"));
+            return true;
+
+        } else if (args.length == 1) {
+            FileConfiguration config = MaxiCity.getInstance().getConfig();
+
+            if (args[0].equalsIgnoreCase("create")) {
+                generateHolo(plugin, config);
+                sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully created!"));
+
+            } else if (args[0].equalsIgnoreCase("set")) {
+                if (sender.getServer().getPlayer(sender.getName()) == null) return false;
+                config.set("holo_scores_location", sender.getServer().getPlayer(sender.getName()).getLocation());
+                sender.sendMessage(MaxiCity.chat("&aThe spawn point of the hologram has been successfully modified!"));
+
+            } else if (args[0].equalsIgnoreCase("reload")) {
+                HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
+                generateHolo(plugin, config);
+                sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully reloaded!"));
+
+            } else if (args[0].equalsIgnoreCase("delete")) {
+                HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
+                sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully deleted!"));
+
+            } else {
                 sender.sendMessage(MaxiCity.chat("/holo <create:set:reload:delete>"));
                 return true;
-
-            } else if (args.length == 1) {
-                FileConfiguration config = MaxiCity.getInstance().getConfig();
-
-                if (args[0].equalsIgnoreCase("create")) {
-                    generateHolo(plugin, config);
-                    sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully created!"));
-
-                } else if (args[0].equalsIgnoreCase("set")) {
-                    if (sender.getServer().getPlayer(sender.getName()) == null) return false;
-                    config.set("holo_scores_location", sender.getServer().getPlayer(sender.getName()).getLocation());
-                    sender.sendMessage(MaxiCity.chat("&aThe spawn point of the hologram has been successfully modified!"));
-
-                } else if (args[0].equalsIgnoreCase("reload")) {
-                    HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
-                    generateHolo(plugin, config);
-                    sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully reloaded!"));
-
-                } else if (args[0].equalsIgnoreCase("delete")) {
-                    HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
-                    sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully deleted!"));
-
-                } else {
-                    sender.sendMessage(MaxiCity.chat("/holo <create:set:reload:delete>"));
-                    return true;
-                }
             }
-        } else {
-            sender.sendMessage(MaxiCity.chat("&cYou do not have permission to execute this command"));
         }
         return true;
     }
