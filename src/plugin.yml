@@ -73,3 +73,8 @@ commands:
   city:
     description: Show the coordinates of the city
     usage: /city
+  setcity:
+    description: Modify the location of the city
+    usage: /setcity
+    permission: ee.city
+    permission-message: &cYou do not have permission to execute this command!

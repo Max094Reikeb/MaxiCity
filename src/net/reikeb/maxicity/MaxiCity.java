@@ -143,6 +143,7 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("msg", new MsgCommand(this));
         registerCommand("r", new ReplyCommand(this));
         registerCommand("city", new CityCommand(this));
+        registerCommand("setcity", new SpawnCommand(this));
 
         registerListener(new JoinQuit());
         registerListener(new CommandChat());
