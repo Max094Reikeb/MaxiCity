@@ -22,24 +22,18 @@ public class VanishCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player p) {
-            if (p.isOp()) {
-                toggleVanish(p);
+            if (vanished.contains(p)) {
+                for (Player people : Bukkit.getOnlinePlayers())
+                    people.showPlayer(plugin, p);
+                vanished.remove(p);
+                p.sendMessage(MaxiCity.chat("&aYou have been un-vanished!"));
+            } else {
+                for (Player people : Bukkit.getOnlinePlayers())
+                    people.hidePlayer(plugin, p);
+                vanished.add(p);
+                p.sendMessage(MaxiCity.chat("&aYou have been vanished!"));
             }
         }
         return true;
-    }
-
-    private void toggleVanish(Player p) {
-        if (vanished.contains(p)) {
-            for (Player people : Bukkit.getOnlinePlayers())
-                people.showPlayer(plugin, p);
-            vanished.remove(p);
-            p.sendMessage(MaxiCity.chat("&aYou have been un-vanished!"));
-        } else {
-            for (Player people : Bukkit.getOnlinePlayers())
-                people.hidePlayer(plugin, p);
-            vanished.add(p);
-            p.sendMessage(MaxiCity.chat("&aYou have been vanished!"));
-        }
     }
 }

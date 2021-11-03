@@ -12,7 +12,7 @@ commands:
     usage: /plugins
   balance:
     description: Manages a player's balance
-    usage: /balance <add:remove:set> <player> <amount>
+    usage: /balance <balance:add:remove:set> <player> [<amount>]
     permission: ee.adminBalance
     permission-message: &cYou do not have permission to execute this command!
   teamchat:

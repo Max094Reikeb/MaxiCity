@@ -20,7 +20,6 @@ public class PluginsOverrideCommand implements CommandExecutor {
         if (sender instanceof Player) {
             sender.sendMessage(MaxiCity.chat("Plugins (3): &aMaxiCity-core, MaxiCity-events, MaxiCity-moderation"));
         }
-
         return true;
     }
 }

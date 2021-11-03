@@ -17,7 +17,7 @@ public class ChatCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(MaxiCity.chat("/balance <on:off>"));
+            sender.sendMessage(MaxiCity.chat("/chat <on:off>"));
             return true;
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("on")) {

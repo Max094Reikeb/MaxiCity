@@ -19,7 +19,7 @@ public class BalanceCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(MaxiCity.chat("/balance <add:remove:set> <player> <amount>"));
+            sender.sendMessage(MaxiCity.chat("/balance <balance:add:remove:set> <player> [<amount>]"));
             return true;
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("add")) {

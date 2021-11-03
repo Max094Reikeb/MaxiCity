@@ -22,7 +22,6 @@ public class SpawnCommand implements CommandExecutor {
             Player player = Bukkit.getPlayer(sender.getName());
             if (player == null) return false;
             MaxiCity.getInstance().getConfig().set("cite_coos", player.getLocation());
-
         } else {
             sender.sendMessage(MaxiCity.chat("&cOnly a player can do this command!"));
         }
