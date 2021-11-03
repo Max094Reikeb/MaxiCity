@@ -70,3 +70,6 @@ commands:
   r:
     description: Replies to a private message
     usage: /r <message>
+  city:
+    description: Show the coordinates of the city
+    usage: /city

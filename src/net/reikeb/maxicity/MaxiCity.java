@@ -16,6 +16,7 @@ import net.reikeb.maxicity.misc.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -102,7 +103,10 @@ public class MaxiCity extends JavaPlugin {
             this.getConfig().set("t_foot", "§1Some random tab footer");
             this.getConfig().set("first_join_message", "&ajoined the city for the first time! Welcome");
             this.getConfig().set("join_message", "&aWelcome back to the city");
-            this.getConfig().set("cite_coos", "&aThe city is located in 0 0 0");
+            this.getConfig().set("cite_coos_message", "&aThe city is located in: ");
+            World world = this.getServer().getWorld("world");
+            if (world != null)
+                this.getConfig().set("cite_coos", world.getSpawnLocation());
             this.getConfig().set("admin", "&4[Admin] ");
             this.getConfig().set("moderator", "&6[Moderator] ");
             this.getConfig().set("first_team", "&2[Naboo] ");
@@ -138,6 +142,7 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("emeraldreset", new ResetCommand(this));
         registerCommand("msg", new MsgCommand(this));
         registerCommand("r", new ReplyCommand(this));
+        registerCommand("city", new CityCommand(this));
 
         registerListener(new JoinQuit());
         registerListener(new CommandChat());
