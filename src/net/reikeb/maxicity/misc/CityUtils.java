@@ -1,13 +1,16 @@
 package net.reikeb.maxicity.misc;
 
 import net.reikeb.maxicity.MaxiCity;
+import net.reikeb.maxicity.commands.HologramCommand;
 import net.reikeb.maxicity.datas.PlayerManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -132,5 +135,23 @@ public class CityUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Method to repeat stuff every 5 minutes
+     */
+    public static void repeat(MaxiCity plugin) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                String sWorld = plugin.getConfig().getString("main_world");
+                if (sWorld == null) return;
+                World world = plugin.getServer().getWorld(sWorld);
+                if (world == null) return;
+                world.setClearWeatherDuration(99999);
+                HologramCommand hologram = new HologramCommand(plugin);
+                hologram.regenerateHolo(plugin);
+            }
+        }.runTaskTimer(plugin, 20L * 5L * 60L, 20L * 5L * 60L);
     }
 }

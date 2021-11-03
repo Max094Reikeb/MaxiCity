@@ -107,6 +107,7 @@ public class MaxiCity extends JavaPlugin {
             World world = this.getServer().getWorld("world");
             if (world != null)
                 this.getConfig().set("cite_coos", world.getSpawnLocation());
+            this.getConfig().set("main_world", "world");
             this.getConfig().set("admin", "&4[Admin] ");
             this.getConfig().set("moderator", "&6[Moderator] ");
             this.getConfig().set("first_team", "&2[Naboo] ");
@@ -123,6 +124,7 @@ public class MaxiCity extends JavaPlugin {
         this.data = new DataManager(this);
         playerManager = new PlayerManager(this);
         playerManager.loadHashMap();
+        CityUtils.repeat(this);
 
         /**
          * Register commands & listeners

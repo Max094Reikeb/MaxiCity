@@ -39,8 +39,7 @@ public class HologramCommand implements CommandExecutor {
                 sender.sendMessage(MaxiCity.chat("&aThe spawn point of the hologram has been successfully modified!"));
 
             } else if (args[0].equalsIgnoreCase("reload")) {
-                HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
-                generateHolo(plugin, config);
+                regenerateHolo(plugin);
                 sender.sendMessage(MaxiCity.chat("&aThe hologram has been successfully reloaded!"));
 
             } else if (args[0].equalsIgnoreCase("delete")) {
@@ -53,6 +52,11 @@ public class HologramCommand implements CommandExecutor {
             }
         }
         return true;
+    }
+
+    public void regenerateHolo(MaxiCity plugin) {
+        HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
+        generateHolo(plugin, plugin.getConfig());
     }
 
     public void generateHolo(MaxiCity plugin, FileConfiguration config) {
