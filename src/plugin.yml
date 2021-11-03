@@ -78,3 +78,6 @@ commands:
     usage: /setcity
     permission: ee.city
     permission-message: &cYou do not have permission to execute this command!
+  money:
+    description: Show your balance
+    usage: /money
