@@ -108,6 +108,7 @@ public class MaxiCity extends JavaPlugin {
             if (world != null)
                 this.getConfig().set("cite_coos", world.getSpawnLocation());
             this.getConfig().set("main_world", "world");
+            this.getConfig().set("holo_reload", true);
             this.getConfig().set("admin", "&4[Admin] ");
             this.getConfig().set("moderator", "&6[Moderator] ");
             this.getConfig().set("first_team", "&2[Naboo] ");
@@ -147,6 +148,7 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("city", new CityCommand(this));
         registerCommand("setcity", new SpawnCommand(this));
         registerCommand("money", new MoneyCommand(this));
+        registerCommand("stopholo", new StopHoloCommand(this));
 
         registerListener(new JoinQuit());
         registerListener(new CommandChat());

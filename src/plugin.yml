@@ -81,3 +81,8 @@ commands:
   money:
     description: Show your balance
     usage: /money
+  stopholo:
+    description: Stops hologram from reloading every 5 minutes
+    usage: /stopholo
+    permission: ee.hologram
+    permission-message: &cYou do not have permission to execute this command!
