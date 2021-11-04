@@ -1,6 +1,6 @@
 name: MaxiCity
 main: net.reikeb.maxicity.MaxiCity
-version: 1.0
+version: 0.1
 author: Max094_Reikeb
 api-version: 1.17
 softdepend: [HolographicDisplays]
@@ -24,7 +24,7 @@ commands:
     permission: ee.socialSpy
     permission-message: &cYou do not have permission to execute this command!
   holo:
-    description: Setup the score hologram
+    description: Setups the score hologram
     usage: /holo <create:set:reload:delete>
     permission: ee.setHolos
     permission-message: &cYou do not have permission to execute this command!
@@ -59,7 +59,7 @@ commands:
     permission: ee.chat
     permission-message: &cYou do not have permission to execute this command!
   emeraldreset:
-    description: Reset all the emeralds
+    description: Resets all the emeralds
     usage: /emeraldreset
     permission: ee.reset
     permission-message: &cYou do not have permission to execute this command!
@@ -71,10 +71,10 @@ commands:
     description: Replies to a private message
     usage: /r <message>
   city:
-    description: Show the coordinates of the city
+    description: Shows the coordinates of the city
     usage: /city
   setcity:
-    description: Modify the location of the city
+    description: Modifies the location of the city
     usage: /setcity
     permission: ee.city
     permission-message: &cYou do not have permission to execute this command!
