@@ -13,7 +13,7 @@ commands:
   balance:
     description: Manages a player's balance
     usage: /balance <balance:add:remove:set> <player> [<amount>]
-    permission: ee.adminBalance
+    permission: ee.balance
     permission-message: &cYou do not have permission to execute this command!
   teamchat:
     description: Manages your team chat
@@ -21,12 +21,12 @@ commands:
   socialspy:
     description: Allows you to spy on people's commands
     usage: /socialspy
-    permission: ee.socialSpy
+    permission: ee.socialspy
     permission-message: &cYou do not have permission to execute this command!
   holo:
     description: Setups the score hologram
     usage: /holo <create:set:reload:delete>
-    permission: ee.setHolos
+    permission: ee.hologram
     permission-message: &cYou do not have permission to execute this command!
   mute:
     description: Mutes a player
