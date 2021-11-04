@@ -28,7 +28,7 @@ public class CityUtils {
      *
      * @param player The player that has the emeralds
      */
-    public void giveEmeralds(Player player) {
+    public static void giveEmeralds(Player player) {
         int nbrEmeralds = 0;
         for (ItemStack i : player.getInventory().getContents()) {
             if (i.getType().equals(Material.EMERALD)) {

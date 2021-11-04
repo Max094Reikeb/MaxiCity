@@ -9,6 +9,7 @@ import net.reikeb.maxicity.commands.mute.UnmuteCommand;
 import net.reikeb.maxicity.datas.DataManager;
 import net.reikeb.maxicity.datas.PlayerManager;
 import net.reikeb.maxicity.listeners.players.CommandChat;
+import net.reikeb.maxicity.listeners.players.Interact;
 import net.reikeb.maxicity.listeners.players.JoinQuit;
 import net.reikeb.maxicity.misc.CityUtils;
 import net.reikeb.maxicity.misc.Version;
@@ -152,6 +153,7 @@ public class MaxiCity extends JavaPlugin {
 
         registerListener(new JoinQuit());
         registerListener(new CommandChat());
+        registerListener(new Interact());
 
         getLogger().info("- Created by Max094_Reikeb -");
     }
