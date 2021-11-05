@@ -21,8 +21,8 @@ public class BroadcastCommand implements CommandExecutor {
             return true;
         } else {
             StringBuilder message = new StringBuilder();
-            for (int i = 1; i <= args.length; i++) {
-                message.append(args[i]);
+            for (String arg : args) {
+                message.append(arg);
             }
             MaxiCity.broadcast(plugin.getServer(), "&6&l----------");
             MaxiCity.broadcast(plugin.getServer(), "&6&l" + message);

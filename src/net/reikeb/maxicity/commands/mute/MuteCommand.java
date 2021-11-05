@@ -31,7 +31,7 @@ public class MuteCommand implements CommandExecutor {
                 } else {
                     if (args.length >= 2) { // has reason
                         StringBuilder reason = new StringBuilder();
-                        for (int i = 2; i <= args.length; i++) {
+                        for (int i = 1; i < args.length; i++) {
                             reason.append(args[i]);
                         }
                         MaxiCity.getInstance().getPlayerManager().mutePlayer(target, reason.toString());

@@ -28,7 +28,7 @@ public class MsgCommand implements CommandExecutor {
             } else {
                 if (args.length >= 2) { // message is here
                     StringBuilder message = new StringBuilder();
-                    for (int i = 2; i <= args.length; i++) {
+                    for (int i = 1; i < args.length; i++) {
                         message.append(args[i]);
                     }
                     Player user = Bukkit.getPlayer(sender.getName());

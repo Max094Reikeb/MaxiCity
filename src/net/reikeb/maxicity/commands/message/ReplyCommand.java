@@ -23,8 +23,8 @@ public class ReplyCommand implements CommandExecutor {
             return true;
         } else {
             StringBuilder message = new StringBuilder();
-            for (int i = 1; i <= args.length; i++) {
-                message.append(args[i]);
+            for (String arg : args) {
+                message.append(arg);
             }
             Player user = Bukkit.getPlayer(sender.getName());
             if (user == null) return false;

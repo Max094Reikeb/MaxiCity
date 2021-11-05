@@ -12,6 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
+
 public class HologramCommand implements CommandExecutor {
 
     public MaxiCity plugin;
@@ -55,7 +57,10 @@ public class HologramCommand implements CommandExecutor {
     }
 
     public void regenerateHolo(MaxiCity plugin) {
-        HologramsAPI.getHolograms(plugin).removeAll(HologramsAPI.getHolograms(plugin));
+        Collection<Hologram> holograms = HologramsAPI.getHolograms(plugin);
+        for (Hologram hologram : holograms) {
+            hologram.delete();
+        }
         generateHolo(plugin, plugin.getConfig());
     }
 

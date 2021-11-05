@@ -2,14 +2,11 @@ package net.reikeb.maxicity.misc;
 
 import net.reikeb.maxicity.MaxiCity;
 import net.reikeb.maxicity.commands.HologramCommand;
-import net.reikeb.maxicity.datas.PlayerManager;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.Field;
@@ -24,40 +21,21 @@ public class CityUtils {
     private static Field connection;
 
     /**
-     * General method that gives emeralds to a player depending on his inventory
+     * General method that modifies the balance of a player's team
      *
-     * @param player The player that has the emeralds
+     * @param player      The player
+     * @param config      The plugin's config
+     * @param nbrEmeralds The number to change
      */
-    public static void giveEmeralds(Player player) {
-        int nbrEmeralds = 0;
-        for (ItemStack i : player.getInventory().getContents()) {
-            if (i.getType().equals(Material.EMERALD)) {
-                nbrEmeralds += i.getAmount();
-                player.getInventory().remove(Material.EMERALD);
-            } else if (i.getType().equals(Material.EMERALD_BLOCK)) {
-                nbrEmeralds += (i.getAmount() * 9);
-                player.getInventory().remove(Material.EMERALD_BLOCK);
-            }
-        }
-
-        if (nbrEmeralds == 0) {
-            player.sendMessage(MaxiCity.chat("&aYou don't have any emeralds on you!"));
-        } else {
-            PlayerManager manager = MaxiCity.getInstance().getPlayerManager();
-            FileConfiguration config = MaxiCity.getInstance().getConfig();
-
-            manager.addBalanceToPlayer(player, nbrEmeralds);
-            player.sendMessage(MaxiCity.chat("&aYou added " + nbrEmeralds + "&aemeralds to your balance!"));
-
-            if (player.hasPermission("team.naboo")) {
-                config.set("naboo_balance", config.getInt("naboo_balance") + nbrEmeralds);
-            } else if (player.hasPermission("team.alderaan")) {
-                config.set("alderaan_balance", config.getInt("alderaan_balance") + nbrEmeralds);
-            } else if (player.hasPermission("team.tatooine")) {
-                config.set("tatooine_balance", config.getInt("tatooine_balance") + nbrEmeralds);
-            } else if (player.hasPermission("team.coruscant")) {
-                config.set("coruscant_balance", config.getInt("coruscant_balance") + nbrEmeralds);
-            }
+    public static void modifyTeamBalance(Player player, FileConfiguration config, int nbrEmeralds) {
+        if (player.hasPermission("team.naboo")) {
+            config.set("naboo_balance", config.getInt("naboo_balance") + nbrEmeralds);
+        } else if (player.hasPermission("team.alderaan")) {
+            config.set("alderaan_balance", config.getInt("alderaan_balance") + nbrEmeralds);
+        } else if (player.hasPermission("team.tatooine")) {
+            config.set("tatooine_balance", config.getInt("tatooine_balance") + nbrEmeralds);
+        } else if (player.hasPermission("team.coruscant")) {
+            config.set("coruscant_balance", config.getInt("coruscant_balance") + nbrEmeralds);
         }
     }
 

@@ -2,11 +2,14 @@ t_head:
 t_foot:
 first_join_message:
 join_message:
+cite_coos_message:
 cite_coos:
-chat_enabled:
+main_world:
+holo_reload:
 admin:
 moderator:
 first_team:
 second_team:
 third_team:
 fourth_team:
+chat_enabled:
