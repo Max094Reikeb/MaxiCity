@@ -16,7 +16,8 @@ public class Interact implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (event.getHand() != EquipmentSlot.HAND) return;
-        if (event.getMaterial() != Material.LECTERN) return;
+        if (event.getClickedBlock() == null) return;
+        if (event.getClickedBlock().getType() != Material.LECTERN) return;
         // Check if player is in the correct region
 
         giveEmeralds(event.getPlayer());
@@ -25,12 +26,14 @@ public class Interact implements Listener {
     public static void giveEmeralds(Player player) {
         int nbrEmeralds = 0;
         for (ItemStack i : player.getInventory().getContents()) {
-            if (i.getType().equals(Material.EMERALD)) {
-                nbrEmeralds += i.getAmount();
-                player.getInventory().remove(Material.EMERALD);
-            } else if (i.getType().equals(Material.EMERALD_BLOCK)) {
-                nbrEmeralds += (i.getAmount() * 9);
-                player.getInventory().remove(Material.EMERALD_BLOCK);
+            if (i != null) {
+                if (i.getType().equals(Material.EMERALD)) {
+                    nbrEmeralds += i.getAmount();
+                    player.getInventory().remove(Material.EMERALD);
+                } else if (i.getType().equals(Material.EMERALD_BLOCK)) {
+                    nbrEmeralds += (i.getAmount() * 9);
+                    player.getInventory().remove(Material.EMERALD_BLOCK);
+                }
             }
         }
 
@@ -38,7 +41,7 @@ public class Interact implements Listener {
             player.sendMessage(MaxiCity.chat("&aYou don't have any emeralds on you!"));
         } else {
             MaxiCity.getInstance().getPlayerManager().addBalanceToPlayer(player, nbrEmeralds);
-            player.sendMessage(MaxiCity.chat("&aYou added " + nbrEmeralds + "&aemeralds to your balance!"));
+            player.sendMessage(MaxiCity.chat("&aYou added " + nbrEmeralds + " &aemeralds to your balance!"));
 
             CityUtils.modifyTeamBalance(player, MaxiCity.getInstance().getConfig(), nbrEmeralds);
         }

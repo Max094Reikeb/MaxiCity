@@ -103,7 +103,7 @@ public class CommandChat implements Listener {
         FileConfiguration config = MaxiCity.getInstance().getConfig();
         PlayerManager manager = MaxiCity.getInstance().getPlayerManager();
 
-        if (config.getBoolean("chat_enable")) {
+        if (config.getBoolean("chat_enabled")) {
             if (manager.isPlayerMuted(player)) {
                 event.setCancelled(true);
                 player.sendMessage(MaxiCity.chat("&cYou can't talk, you have been muted for: '" + manager.getMutedPlayerReason(player) + "'"));
