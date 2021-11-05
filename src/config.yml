@@ -7,9 +7,15 @@ cite_coos:
 main_world:
 holo_reload:
 admin:
+admin_list:
 moderator:
+moderator_list:
 first_team:
+first_team_list:
 second_team:
+second_team_list:
 third_team:
+third_team_list:
 fourth_team:
+fourth_team_list:
 chat_enabled:
