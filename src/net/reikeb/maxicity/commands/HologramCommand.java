@@ -24,11 +24,11 @@ public class HologramCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
+        if (args.length != 1) {
             sender.sendMessage(MaxiCity.chat("/holo <create:set:reload:delete>"));
             return true;
 
-        } else if (args.length == 1) {
+        } else {
             FileConfiguration config = MaxiCity.getInstance().getConfig();
 
             if (args[0].equalsIgnoreCase("create")) {
@@ -57,6 +57,7 @@ public class HologramCommand implements CommandExecutor {
     }
 
     public void regenerateHolo(MaxiCity plugin) {
+        if (!plugin.getConfig().getBoolean("holo_reload")) return;
         Collection<Hologram> holograms = HologramsAPI.getHolograms(plugin);
         for (Hologram hologram : holograms) {
             hologram.delete();

@@ -22,10 +22,10 @@ public class BroadcastCommand implements CommandExecutor {
         } else {
             StringBuilder message = new StringBuilder();
             for (String arg : args) {
-                message.append(arg);
+                message.append(arg).append(" ");
             }
             MaxiCity.broadcast(plugin.getServer(), "&6&l----------");
-            MaxiCity.broadcast(plugin.getServer(), "&6&l" + message);
+            MaxiCity.broadcast(plugin.getServer(), "&6&l" + message.toString().trim());
             MaxiCity.broadcast(plugin.getServer(), "&6&l----------");
         }
         return true;

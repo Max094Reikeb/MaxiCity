@@ -20,19 +20,24 @@ public class BalanceCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
+        if ((args.length == 0) || (args.length >= 4)) {
             sender.sendMessage(MaxiCity.chat("/balance <balance:add:remove:set> <player> [<amount>]"));
             return true;
         } else if (args.length == 1) {
             if (args[0].equalsIgnoreCase("add")) {
                 sender.sendMessage(MaxiCity.chat("/balance <add> <player> <amount>"));
+                return true;
             } else if (args[0].equalsIgnoreCase("remove")) {
                 sender.sendMessage(MaxiCity.chat("/balance <remove> <player> <amount>"));
+                return true;
             } else if (args[0].equalsIgnoreCase("set")) {
                 sender.sendMessage(MaxiCity.chat("/balance <set> <player> <amount>"));
+                return true;
             } else if (args[0].equalsIgnoreCase("balance")) {
                 sender.sendMessage(MaxiCity.chat("/balance <balance> <player>"));
+                return true;
             }
+            return true;
         } else if (args.length == 2) {
             @SuppressWarnings("deprecation")
             OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);
@@ -44,6 +49,7 @@ public class BalanceCommand implements CommandExecutor {
             } else {
                 sender.sendMessage(MaxiCity.chat("&cPlayer " + args[1] + " &dcould not be found!"));
             }
+            return true;
         } else if (args.length == 3) {
             @SuppressWarnings("deprecation")
             int amount = Integer.parseInt(args[2]);
@@ -56,6 +62,7 @@ public class BalanceCommand implements CommandExecutor {
                 } else {
                     sender.sendMessage(MaxiCity.chat("&cPlayer " + args[1] + " &ccould not be found"));
                 }
+                return true;
             } else if (args[0].equalsIgnoreCase("remove")) {
                 if (p.isOnline()) {
                     plugin.getPlayerManager().removeBalanceFromPlayer(p, amount);
@@ -64,6 +71,7 @@ public class BalanceCommand implements CommandExecutor {
                 } else {
                     sender.sendMessage(MaxiCity.chat("&cPlayer " + args[1] + " &ccould not be found "));
                 }
+                return true;
             } else if (args[0].equalsIgnoreCase("set")) {
                 if (p.isOnline()) {
                     int before = plugin.getPlayerManager().getPlayerBalance(p);
@@ -73,6 +81,7 @@ public class BalanceCommand implements CommandExecutor {
                 } else {
                     sender.sendMessage(MaxiCity.chat("&cPlayer " + args[1] + " &ccould not be found"));
                 }
+                return true;
             }
         }
         return true;

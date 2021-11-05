@@ -4,10 +4,10 @@ import net.reikeb.maxicity.MaxiCity;
 import net.reikeb.maxicity.datas.PlayerManager;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class TeamChatCommand implements CommandExecutor {
 
@@ -19,7 +19,8 @@ public class TeamChatCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        OfflinePlayer player = Bukkit.getOfflinePlayer(sender.getName());
+        Player player = Bukkit.getPlayer(sender.getName());
+        if (player == null) return false;
         PlayerManager manager = plugin.getPlayerManager();
         if (manager.getPlayerTeamChat(player)) {
             manager.setPlayerTeamChat(player, false);

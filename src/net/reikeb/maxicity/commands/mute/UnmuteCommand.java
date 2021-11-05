@@ -20,17 +20,16 @@ public class UnmuteCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
             sender.sendMessage(MaxiCity.chat("/unmute <player>"));
-            return true;
         } else {
             Player target = Bukkit.getPlayer(args[0]);
             if ((target == null) || (!target.isOnline())) {
-                sender.sendMessage(MaxiCity.chat("&cPlayer " + target + " &ccould not be found!"));
+                sender.sendMessage(MaxiCity.chat("&cPlayer " + args[0] + " &ccould not be found!"));
             } else {
                 if (!MaxiCity.getInstance().getPlayerManager().isPlayerMuted(target)) {
-                    sender.sendMessage(MaxiCity.chat("&cPlayer " + target + " &cis not muted!"));
+                    sender.sendMessage(MaxiCity.chat("&cPlayer " + target.getName() + " &cis not muted!"));
                 } else {
                     MaxiCity.getInstance().getPlayerManager().unmutePlayer(target);
-                    sender.sendMessage(MaxiCity.chat("&aPlayer " + target + " &ahas been unmuted!"));
+                    sender.sendMessage(MaxiCity.chat("&aPlayer " + target.getName() + " &ahas been unmuted!"));
                     target.sendMessage(MaxiCity.chat("&2You have been unmuted by " + sender.getName()));
                 }
             }

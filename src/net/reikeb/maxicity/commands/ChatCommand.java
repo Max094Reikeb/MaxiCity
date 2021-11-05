@@ -16,10 +16,10 @@ public class ChatCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
+        if (args.length != 1) {
             sender.sendMessage(MaxiCity.chat("/chat <on:off>"));
             return true;
-        } else if (args.length == 1) {
+        } else {
             if (args[0].equalsIgnoreCase("on")) {
                 if (plugin.getConfig().getBoolean("chat_enabled")) {
                     sender.sendMessage(MaxiCity.chat("&cThe chat is already enabled!"));

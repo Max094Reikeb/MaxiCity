@@ -127,10 +127,8 @@ public class CityUtils {
                 World world = plugin.getServer().getWorld(sWorld);
                 if (world == null) return;
                 world.setClearWeatherDuration(99999);
-                if (plugin.getConfig().getBoolean("holo_reload")) {
-                    HologramCommand hologram = new HologramCommand(plugin);
-                    hologram.regenerateHolo(plugin);
-                }
+                HologramCommand hologram = new HologramCommand(plugin);
+                hologram.regenerateHolo(plugin);
             }
         }.runTaskTimer(plugin, 20L * 5L * 60L, 20L * 5L * 60L);
     }

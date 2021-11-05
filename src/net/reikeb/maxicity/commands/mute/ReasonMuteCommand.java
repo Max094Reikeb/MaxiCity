@@ -19,17 +19,16 @@ public class ReasonMuteCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(MaxiCity.chat("/mute <player>"));
-            return true;
+            sender.sendMessage(MaxiCity.chat("/mutereason <player>"));
         } else {
             Player target = Bukkit.getPlayer(args[0]);
             if ((target == null) || (!target.isOnline())) {
-                sender.sendMessage(MaxiCity.chat("&cPlayer " + target + " &ccould not be found!"));
+                sender.sendMessage(MaxiCity.chat("&cPlayer " + args[0] + " &ccould not be found!"));
             } else {
                 if (!MaxiCity.getInstance().getPlayerManager().isPlayerMuted(target)) {
-                    sender.sendMessage(MaxiCity.chat("&cPlayer " + target + " &cis not muted!"));
+                    sender.sendMessage(MaxiCity.chat("&cPlayer " + target.getName() + " &cis not muted!"));
                 } else {
-                    sender.sendMessage(MaxiCity.chat("&a" + target + " &ahas been muted for: '" + MaxiCity.getInstance().getPlayerManager().getMutedPlayerReason(target) + "'"));
+                    sender.sendMessage(MaxiCity.chat("&a" + target.getName() + " &ahas been muted for: '" + MaxiCity.getInstance().getPlayerManager().getMutedPlayerReason(target) + "'"));
                 }
             }
         }
