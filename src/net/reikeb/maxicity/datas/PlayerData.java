@@ -11,6 +11,7 @@ public class PlayerData {
     private boolean isPlayerNicked;
     private String playerNickname;
     private String playerTeam;
+    private String playerTeamList;
     private boolean socialSpy;
     private boolean teamChat;
     private Player chatPlayerReply;
@@ -78,6 +79,14 @@ public class PlayerData {
 
     public void setPlayerTeam(String playerTeam) {
         this.playerTeam = playerTeam;
+    }
+
+    public String getPlayerTeamList() {
+        return this.playerTeamList;
+    }
+
+    public void setPlayerTeamList(String playerTeamList) {
+        this.playerTeamList = playerTeamList;
     }
 
     public boolean getSocialSpy() {

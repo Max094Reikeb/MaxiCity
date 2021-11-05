@@ -32,18 +32,22 @@ public class JoinQuit implements Listener {
 
         if (player.hasPermission("team.naboo")) {
             manager.setPlayerTeam(player, config.getString("first_team"));
+            manager.setPlayerTeamList(player, config.getString("first_team_list"));
         } else if (player.hasPermission("team.tatooine")) {
             manager.setPlayerTeam(player, config.getString("second_team"));
+            manager.setPlayerTeamList(player, config.getString("second_team_list"));
         } else if (player.hasPermission("team.alderaan")) {
             manager.setPlayerTeam(player, config.getString("third_team"));
+            manager.setPlayerTeamList(player, config.getString("third_team_list"));
         } else if (player.hasPermission("team.coruscant")) {
             manager.setPlayerTeam(player, config.getString("fourth_team"));
+            manager.setPlayerTeamList(player, config.getString("fourth_team_list"));
         }
 
         if (!manager.hasPlayerJoined(player)) {
             MaxiCity.broadcast(player, "&a" + player.getDisplayName() + " &a" + config.get("first_join_message") + " &a" + player.getDisplayName());
             player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 5));
-            player.setPlayerListName(manager.getPlayerTeam(player) + player.getDisplayName());
+            player.setPlayerListName(manager.getPlayerTeamList(player) + player.getName());
             manager.setJoinedPlayer(player, true);
             player.teleport(config.getLocation("cite_coos"));
         } else {

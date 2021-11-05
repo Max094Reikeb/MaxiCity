@@ -111,11 +111,17 @@ public class MaxiCity extends JavaPlugin {
             this.getConfig().set("main_world", "world");
             this.getConfig().set("holo_reload", true);
             this.getConfig().set("admin", "&4[Admin] ");
+            this.getConfig().set("admin_list", "§4[Admin] ");
             this.getConfig().set("moderator", "&6[Moderator] ");
+            this.getConfig().set("moderator_list", "§6[Moderator] ");
             this.getConfig().set("first_team", "&2[Naboo] ");
+            this.getConfig().set("first_team_list", "§2[Naboo] ");
             this.getConfig().set("second_team", "&e[Tatooine] ");
+            this.getConfig().set("second_team_list", "§e[Tatooine] ");
             this.getConfig().set("third_team", "&3[Alderaan] ");
+            this.getConfig().set("third_team_list", "§3[Alderaan] ");
             this.getConfig().set("fourth_team", "&d[Coruscant] ");
+            this.getConfig().set("fourth_team_list", "§d[Coruscant] ");
         }
         this.getConfig().set("chat_enabled", true);
         this.saveConfig();

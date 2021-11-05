@@ -150,6 +150,18 @@ public class PlayerManager {
         }
     }
 
+    public void setPlayerTeamList(OfflinePlayer p, String team) {
+        playerDataMap.get(p.getUniqueId()).setPlayerTeamList(team);
+    }
+
+    public String getPlayerTeamList(OfflinePlayer p) {
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).getPlayerTeamList();
+        } else {
+            return "";
+        }
+    }
+
     /**
      * SocialSpy methods
      */
