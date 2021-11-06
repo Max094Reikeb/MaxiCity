@@ -15,6 +15,7 @@ public class PlayerData {
     private boolean socialSpy;
     private boolean teamChat;
     private Player chatPlayerReply;
+    private Group teamGroup;
 
     public PlayerData(boolean hasPlayerJoined, boolean isPlayerMuted, boolean isPlayerNicked, boolean socialSpy,
                       boolean teamChat) {
@@ -111,5 +112,13 @@ public class PlayerData {
 
     public void setChatPlayerReply(Player chatPlayerReply) {
         this.chatPlayerReply = chatPlayerReply;
+    }
+
+    public Group getTeamGroup() {
+        return this.teamGroup;
+    }
+
+    public void setTeamGroup(Group teamGroup) {
+        this.teamGroup = teamGroup;
     }
 }

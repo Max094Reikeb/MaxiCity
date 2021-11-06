@@ -86,3 +86,83 @@ commands:
     usage: /stopholo
     permission: ee.hologram
     permission-message: &cYou do not have permission to execute this command!
+
+permissions:
+  ee.balance:
+    description: Allows complete management for player's balance
+    default: op
+  ee.socialspy:
+    description: Allows to spy on people's commands
+    default: op
+  ee.hologram:
+    description: Allows complete management of the holograms
+    default: op
+  ee.mute:
+    description: Allows to mute players
+    default: op
+  ee.unmute:
+    description: Allows to unmute players
+    default: op
+  ee.showmute:
+    description: Allows to show the mute reason of a player
+    default: op
+  ee.vanish:
+    description: Allows you to vanish
+    default: op
+  ee.broadcast:
+    description: Allows you to broadcast a global message in chat
+    default: op
+  ee.chat:
+    description: Allows you to manage the chat
+    default: op
+  ee.reset:
+    description: Allows you to reset emerald counts
+    default: op
+  ee.city:
+    description: Allows you to modify the spawn point of the city
+    default: op
+  ee.chatalways:
+    description: Allows you to always chat
+    default: op
+  ee.*:
+    default: false
+    children:
+      ee.balance: false
+      ee.socialspy: false
+      ee.hologram: false
+      ee.mute: false
+      ee.unmute: false
+      ee.showmute: false
+      ee.vanish: false
+      ee.broadcast: false
+      ee.chat: false
+      ee.reset: false
+      ee.city: false
+      ee.chatalways: false
+  team.one:
+    description: Belong to team one
+    default: false
+  team.two:
+    description: Belong to team two
+    default: false
+  team.three:
+    description: Belong to team three
+    default: false
+  team.four:
+    description: Belong to team four
+    default: false
+  team.moderator:
+    description: Moderator powers
+    default: false
+  team.admin:
+    description: Admin powers
+    default: false
+  team.*:
+    default: false
+    children:
+      team.one: false
+      team.two: false
+      team.three: false
+      team.four: false
+      team.moderator: false
+      team.admin: false

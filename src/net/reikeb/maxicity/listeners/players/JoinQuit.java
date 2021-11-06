@@ -1,48 +1,49 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
+import net.reikeb.maxicity.datas.Group;
 import net.reikeb.maxicity.datas.PlayerManager;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.File;
+import java.io.IOException;
+
 public class JoinQuit implements Listener {
+
+    private final MaxiCity plugin;
+
+    public JoinQuit(MaxiCity plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     private void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        FileConfiguration config = MaxiCity.getInstance().getConfig();
-        PlayerManager manager = MaxiCity.getInstance().getPlayerManager();
+        FileConfiguration config = this.plugin.getConfig();
+        PlayerManager manager = this.plugin.getPlayerManager();
 
         if (!manager.hasPlayerJoined(player)) manager.setNewPlayer(player);
+        setupTeams(manager);
 
         manager.setPlayerTeamChat(player, false);
         manager.setPlayerSocialSpy(player, false);
 
-        player.setPlayerListHeaderFooter(config.getString("t_head"), config.getString("t_foot"));
+        manager.removePermissions(player);
+        manager.loadPermissions(player);
 
-        if (player.hasPermission("team.naboo")) {
-            manager.setPlayerTeam(player, config.getString("first_team"));
-            manager.setPlayerTeamList(player, config.getString("first_team_list"));
-        } else if (player.hasPermission("team.tatooine")) {
-            manager.setPlayerTeam(player, config.getString("second_team"));
-            manager.setPlayerTeamList(player, config.getString("second_team_list"));
-        } else if (player.hasPermission("team.alderaan")) {
-            manager.setPlayerTeam(player, config.getString("third_team"));
-            manager.setPlayerTeamList(player, config.getString("third_team_list"));
-        } else if (player.hasPermission("team.coruscant")) {
-            manager.setPlayerTeam(player, config.getString("fourth_team"));
-            manager.setPlayerTeamList(player, config.getString("fourth_team_list"));
-        }
+        player.setPlayerListHeaderFooter(config.getString("t_head"), config.getString("t_foot"));
+        setupPrefixes(player, config, manager);
 
         if (!manager.hasPlayerJoined(player)) {
             MaxiCity.broadcast(player, "&a" + player.getDisplayName() + " &a" + config.get("first_join_message") + " &a" + player.getDisplayName());
@@ -64,14 +65,104 @@ public class JoinQuit implements Listener {
         e.setJoinMessage(MaxiCity.chat("&2[&c+&2] " + player.getDisplayName()));
     }
 
+    private void setupPrefixes(Player player, FileConfiguration config, PlayerManager manager) {
+        if (player.hasPermission("team.admin")) {
+            manager.setPlayerTeam(player, config.getString("admin"));
+            manager.setPlayerTeamList(player, config.getString("admin_list"));
+        } else if (player.hasPermission("team.moderator")) {
+            manager.setPlayerTeam(player, config.getString("moderator"));
+            manager.setPlayerTeamList(player, config.getString("moderator_list"));
+        } else if (player.hasPermission("team.one")) {
+            manager.setPlayerTeam(player, config.getString("first_team"));
+            manager.setPlayerTeamList(player, config.getString("first_team_list"));
+        } else if (player.hasPermission("team.two")) {
+            manager.setPlayerTeam(player, config.getString("second_team"));
+            manager.setPlayerTeamList(player, config.getString("second_team_list"));
+        } else if (player.hasPermission("team.three")) {
+            manager.setPlayerTeam(player, config.getString("third_team"));
+            manager.setPlayerTeamList(player, config.getString("third_team_list"));
+        } else if (player.hasPermission("team.four")) {
+            manager.setPlayerTeam(player, config.getString("fourth_team"));
+            manager.setPlayerTeamList(player, config.getString("fourth_team_list"));
+        }
+    }
+
+    private void setupTeams(PlayerManager manager) {
+        File teamsFile = new File(this.plugin.getDataFolder(), "teams.yml");
+        if (!teamsFile.exists())
+            this.plugin.setupTeamFile();
+        YamlConfiguration yaml = new YamlConfiguration();
+        try {
+            yaml.load(teamsFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+        if (yaml.getString("team_one") != null) {
+            for (String str : yaml.getString("team_one").split("\\s*,\\s*")) {
+                String playerName = str.substring(1, (str.length() - 1));
+                if (Bukkit.getPlayer(playerName) != null) {
+                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.TEAM_ONE);
+                }
+            }
+        }
+        if (yaml.getString("team_two") != null) {
+            for (String str : yaml.getString("team_two").split("\\s*,\\s*")) {
+                String playerName = str.substring(1, (str.length() - 1));
+                if (Bukkit.getPlayer(playerName) != null) {
+                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.TEAM_TWO);
+                }
+            }
+        }
+        if (yaml.getString("team_three") != null) {
+            for (String str : yaml.getString("team_three").split("\\s*,\\s*")) {
+                String playerName = str.substring(1, (str.length() - 1));
+                if (Bukkit.getPlayer(playerName) != null) {
+                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.TEAM_THREE);
+                }
+            }
+        }
+        if (yaml.getString("team_four") != null) {
+            for (String str : yaml.getString("team_four").split("\\s*,\\s*")) {
+                String playerName = str.substring(1, (str.length() - 1));
+                if (Bukkit.getPlayer(playerName) != null) {
+                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.TEAM_FOUR);
+                }
+            }
+        }
+        if (yaml.getString("moderators") != null) {
+            for (String str : yaml.getString("moderators").split("\\s*,\\s*")) {
+                String playerName = str.substring(1, (str.length() - 1));
+                if (Bukkit.getPlayer(playerName) != null) {
+                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.MODERATOR);
+                }
+            }
+        }
+        if (yaml.getString("admin") != null) {
+            for (String str : yaml.getString("admin").split("\\s*,\\s*")) {
+                String playerName = str.substring(1, (str.length() - 1));
+                if (Bukkit.getPlayer(playerName) != null) {
+                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.ADMIN);
+                }
+            }
+        }
+    }
+
     @EventHandler
     private void onLeave(PlayerQuitEvent e) {
+        this.plugin.getPlayerManager().removePermissions(e.getPlayer());
         e.setQuitMessage(MaxiCity.chat("&9[&4-&9] " + e.getPlayer().getDisplayName()));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onPreJoin(AsyncPlayerPreLoginEvent e) {
         // Check for bans
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onMonitorLogin(PlayerLoginEvent event) {
+        if (event.getResult() != PlayerLoginEvent.Result.ALLOWED) {
+            this.plugin.getPlayerManager().removePermissions(event.getPlayer());
+        }
     }
 
     @EventHandler

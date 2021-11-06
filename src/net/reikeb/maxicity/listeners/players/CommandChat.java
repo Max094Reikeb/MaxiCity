@@ -18,7 +18,6 @@ public class CommandChat implements Listener {
         FileConfiguration config = MaxiCity.getInstance().getConfig();
         PlayerManager manager = MaxiCity.getInstance().getPlayerManager();
 
-        replaceChars(event.getMessage());
         event.setCancelled(true);
 
         if (config.getBoolean("chat_enabled")) {
@@ -26,53 +25,43 @@ public class CommandChat implements Listener {
                 if (manager.getPlayerTeamChat(player)) {
                     for (Player p : player.getServer().getOnlinePlayers()) {
 
-                        if (player.hasPermission("team.naboo") && p.hasPermission("team.naboo")) {
+                        if (player.hasPermission("team.one") && p.hasPermission("team.one")) {
                             if (manager.isPlayerNicked(player)) {
-                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] " + manager.getPlayerTeam(player) + " &r"
-                                        + manager.getPlayerNickname(player) + ": " + event.getMessage()));
+                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &r" + manager.getPlayerNickname(player) + ": " + event.getMessage()));
                             } else {
-                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] " + manager.getPlayerTeam(player) + " &r"
-                                        + player.getDisplayName() + ": " + event.getMessage()));
+                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &r" + player.getDisplayName() + ": " + event.getMessage()));
                             }
                         }
 
-                        if (player.hasPermission("team.tatooine") && p.hasPermission("team.tatooine")) {
+                        if (player.hasPermission("team.two") && p.hasPermission("team.two")) {
                             if (manager.isPlayerNicked(player)) {
-                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] " + manager.getPlayerTeam(player) + " &r"
-                                        + manager.getPlayerNickname(player) + ": " + event.getMessage()));
+                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &r" + manager.getPlayerNickname(player) + ": " + event.getMessage()));
                             } else {
-                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] " + manager.getPlayerTeam(player) + " &r"
-                                        + player.getDisplayName() + ": " + event.getMessage()));
+                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &r" + player.getDisplayName() + ": " + event.getMessage()));
                             }
                         }
 
-                        if (player.hasPermission("team.alderaan") && p.hasPermission("team.alderaan")) {
+                        if (player.hasPermission("team.three") && p.hasPermission("team.three")) {
                             if (manager.isPlayerNicked(player)) {
-                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] " + manager.getPlayerTeam(player) + " &r"
-                                        + manager.getPlayerNickname(player) + ": " + event.getMessage()));
+                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &r" + manager.getPlayerNickname(player) + ": " + event.getMessage()));
                             } else {
-                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] " + manager.getPlayerTeam(player) + " &r"
-                                        + player.getDisplayName() + ": " + event.getMessage()));
+                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &r" + player.getDisplayName() + ": " + event.getMessage()));
                             }
                         }
 
-                        if (player.hasPermission("team.coruscant") && p.hasPermission("team.coruscant")) {
+                        if (player.hasPermission("team.four") && p.hasPermission("team.four")) {
                             if (manager.isPlayerNicked(player)) {
-                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] " + manager.getPlayerTeam(player) + " &r"
-                                        + manager.getPlayerNickname(player) + ": " + event.getMessage()));
+                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &r" + manager.getPlayerNickname(player) + ": " + event.getMessage()));
                             } else {
-                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] " + manager.getPlayerTeam(player) + " &r"
-                                        + player.getDisplayName() + ": " + event.getMessage()));
+                                p.sendMessage(MaxiCity.chat("&f[&aTeamChat&f] &r" + player.getDisplayName() + ": " + event.getMessage()));
                             }
                         }
                     }
                 } else {
                     if (manager.isPlayerNicked(player)) {
-                        MaxiCity.broadcast(player, MaxiCity.chat(manager.getPlayerTeam(player) + " &r" +
-                                manager.getPlayerNickname(player) + ": " + event.getMessage()));
+                        MaxiCity.broadcast(player, MaxiCity.chat(manager.getPlayerTeam(player) + " &r" + manager.getPlayerNickname(player) + ": " + event.getMessage()));
                     } else {
-                        MaxiCity.broadcast(player, MaxiCity.chat(manager.getPlayerTeam(player) + " &r" +
-                                player.getDisplayName() + ": " + event.getMessage()));
+                        MaxiCity.broadcast(player, MaxiCity.chat(manager.getPlayerTeam(player) + " &r" + player.getDisplayName() + ": " + event.getMessage()));
                     }
                 }
             } else {
@@ -82,11 +71,9 @@ public class CommandChat implements Listener {
             if (player.hasPermission("ee.chatalways")) {
                 if (!manager.isPlayerMuted(player)) {
                     if (manager.isPlayerNicked(player)) {
-                        MaxiCity.broadcast(player, MaxiCity.chat(manager.getPlayerTeam(player) + " &r" +
-                                manager.getPlayerNickname(player) + ": " + event.getMessage()));
+                        MaxiCity.broadcast(player, MaxiCity.chat(manager.getPlayerTeam(player) + " &r" + manager.getPlayerNickname(player) + ": " + event.getMessage()));
                     } else {
-                        MaxiCity.broadcast(player, MaxiCity.chat(manager.getPlayerTeam(player) + " &r" +
-                                player.getDisplayName() + ": " + event.getMessage()));
+                        MaxiCity.broadcast(player, MaxiCity.chat(manager.getPlayerTeam(player) + " &r" + player.getDisplayName() + ": " + event.getMessage()));
                     }
                 } else {
                     player.sendMessage(MaxiCity.chat("&cYou can't talk, you have been muted for: '" + manager.getMutedPlayerReason(player) + "'"));
@@ -120,19 +107,5 @@ public class CommandChat implements Listener {
                 player.sendMessage(MaxiCity.chat("&cThe chat is off, you can't talk right now!"));
             }
         }
-    }
-
-    public String replaceChars(String message) {
-        if (message.contains("<3")) message.replace("<3", "&4❤&f");
-        if (message.contains(":)")) message.replace(":)", "☺");
-        if (message.contains(":(")) message.replace(":(", "☹");
-        if (message.contains("harrypotter")) message.replace("harrypotter", "ϟ");
-        if (message.contains("=>")) message.replace("=>", "⇨");
-        if (message.contains("->")) message.replace("->", "→");
-        if (message.contains("<-")) message.replace("<-", "←");
-        if (message.contains("citedesetoiles"))
-            message.replace("citedesetoiles", MaxiCity.chat("&2Cité &ades &2Étoiles"));
-
-        return message;
     }
 }

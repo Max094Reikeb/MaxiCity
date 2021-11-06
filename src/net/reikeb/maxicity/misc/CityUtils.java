@@ -28,13 +28,13 @@ public class CityUtils {
      * @param nbrEmeralds The number to change
      */
     public static void modifyTeamBalance(Player player, FileConfiguration config, int nbrEmeralds) {
-        if (player.hasPermission("team.naboo")) {
+        if (player.hasPermission("team.one")) {
             config.set("naboo_balance", config.getInt("naboo_balance") + nbrEmeralds);
-        } else if (player.hasPermission("team.alderaan")) {
-            config.set("alderaan_balance", config.getInt("alderaan_balance") + nbrEmeralds);
-        } else if (player.hasPermission("team.tatooine")) {
+        } else if (player.hasPermission("team.two")) {
             config.set("tatooine_balance", config.getInt("tatooine_balance") + nbrEmeralds);
-        } else if (player.hasPermission("team.coruscant")) {
+        } else if (player.hasPermission("team.three")) {
+            config.set("alderaan_balance", config.getInt("alderaan_balance") + nbrEmeralds);
+        } else if (player.hasPermission("team.four")) {
             config.set("coruscant_balance", config.getInt("coruscant_balance") + nbrEmeralds);
         }
     }

@@ -4,12 +4,14 @@ import net.reikeb.maxicity.MaxiCity;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 
 import java.util.*;
 
 public class PlayerManager {
 
     public static final HashMap<UUID, PlayerData> playerDataMap = new HashMap<UUID, PlayerData>();
+    public static final HashMap<UUID, PermissionAttachment> playerPermissions = new HashMap<UUID, PermissionAttachment>();
     public MaxiCity plugin;
 
     public PlayerManager(MaxiCity plugin) {
@@ -19,7 +21,7 @@ public class PlayerManager {
     public void saveHashMap() {
         List<String> sUUIDs = new ArrayList<>();
         Set<UUID> UUIDset = playerDataMap.keySet();
-        for(UUID uuid : UUIDset) {
+        for (UUID uuid : UUIDset) {
             sUUIDs.add(uuid.toString());
         }
         plugin.getConfig().set("playerDataMap", sUUIDs);
@@ -32,6 +34,49 @@ public class PlayerManager {
         for (String sUUID : sUUIDs) {
             UUID uuid = UUID.fromString(sUUID);
             playerDataMap.put(uuid, playerDataMap.get(uuid));
+        }
+    }
+
+    public void removePermissions(Player player) {
+        if (!playerPermissions.containsKey(player.getUniqueId())) return;
+
+        PermissionAttachment permission = playerPermissions.get(player.getUniqueId());
+        if (permission != null) permission.remove();
+
+        plugin.getServer().getPluginManager().removePermission(player.getUniqueId().toString());
+    }
+
+    public void disablePermissions() {
+        for (PermissionAttachment permission : playerPermissions.values()) {
+            permission.remove();
+        }
+        playerPermissions.clear();
+    }
+
+    public void loadPermissions(Player player) {
+        PermissionAttachment permission = playerPermissions.get(player.getUniqueId());
+
+        if (permission == null) {
+            permission = player.addAttachment(plugin);
+            playerPermissions.put(player.getUniqueId(), permission);
+            permission.setPermission("team.one", getTeamGroup(player).equals(Group.TEAM_ONE));
+            permission.setPermission("team.two", getTeamGroup(player).equals(Group.TEAM_TWO));
+            permission.setPermission("team.three", getTeamGroup(player).equals(Group.TEAM_THREE));
+            permission.setPermission("team.four", getTeamGroup(player).equals(Group.TEAM_FOUR));
+            permission.setPermission("team.moderator", getTeamGroup(player).equals(Group.MODERATOR));
+            permission.setPermission("team.admin", getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.balance", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.socialspy", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.hologram", getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.mute", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.unmute", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.showmute", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.vanish", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.broadcast", getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.chat", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.reset", getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.city", getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.chatalways", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
         }
     }
 
@@ -205,6 +250,22 @@ public class PlayerManager {
     public Player getChatPrivateReply(OfflinePlayer p) {
         if (playerDataMap.get(p.getUniqueId()) != null) {
             return playerDataMap.get(p.getUniqueId()).getChatPlayerReply();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Group methods
+     */
+    public void setTeamGroup(OfflinePlayer p, Group teamGroup) {
+        if (playerDataMap.get(p.getUniqueId()) == null) return;
+        playerDataMap.get(p.getUniqueId()).setTeamGroup(teamGroup);
+    }
+
+    public Group getTeamGroup(OfflinePlayer p) {
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).getTeamGroup();
         } else {
             return null;
         }
