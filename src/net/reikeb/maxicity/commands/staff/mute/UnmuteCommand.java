@@ -1,4 +1,4 @@
-package net.reikeb.maxicity.commands.mute;
+package net.reikeb.maxicity.commands.staff.mute;
 
 import net.reikeb.maxicity.MaxiCity;
 

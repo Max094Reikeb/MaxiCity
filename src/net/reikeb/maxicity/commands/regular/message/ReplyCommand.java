@@ -1,4 +1,4 @@
-package net.reikeb.maxicity.commands.message;
+package net.reikeb.maxicity.commands.regular.message;
 
 import net.reikeb.maxicity.MaxiCity;
 

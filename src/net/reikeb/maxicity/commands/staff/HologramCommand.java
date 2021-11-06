@@ -1,4 +1,4 @@
-package net.reikeb.maxicity.commands;
+package net.reikeb.maxicity.commands.staff;
 
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;

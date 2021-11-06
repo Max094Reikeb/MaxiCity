@@ -6,12 +6,16 @@ package net.reikeb.maxicity;
  * WorldGuard
  */
 
-import net.reikeb.maxicity.commands.*;
-import net.reikeb.maxicity.commands.message.MsgCommand;
-import net.reikeb.maxicity.commands.message.ReplyCommand;
-import net.reikeb.maxicity.commands.mute.MuteCommand;
-import net.reikeb.maxicity.commands.mute.ReasonMuteCommand;
-import net.reikeb.maxicity.commands.mute.UnmuteCommand;
+import net.reikeb.maxicity.commands.regular.CityCommand;
+import net.reikeb.maxicity.commands.regular.MoneyCommand;
+import net.reikeb.maxicity.commands.regular.PluginsOverrideCommand;
+import net.reikeb.maxicity.commands.regular.TeamChatCommand;
+import net.reikeb.maxicity.commands.regular.message.MsgCommand;
+import net.reikeb.maxicity.commands.regular.message.ReplyCommand;
+import net.reikeb.maxicity.commands.staff.*;
+import net.reikeb.maxicity.commands.staff.mute.MuteCommand;
+import net.reikeb.maxicity.commands.staff.mute.ReasonMuteCommand;
+import net.reikeb.maxicity.commands.staff.mute.UnmuteCommand;
 import net.reikeb.maxicity.datas.DataManager;
 import net.reikeb.maxicity.datas.PlayerManager;
 import net.reikeb.maxicity.listeners.players.CommandChat;

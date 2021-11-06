@@ -1,4 +1,4 @@
-package net.reikeb.maxicity.commands;
+package net.reikeb.maxicity.commands.staff;
 
 import net.reikeb.maxicity.MaxiCity;
 import net.reikeb.maxicity.misc.CityUtils;
