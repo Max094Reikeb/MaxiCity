@@ -77,6 +77,7 @@ public class PlayerManager {
             permission.setPermission("ee.reset", getTeamGroup(player).equals(Group.ADMIN));
             permission.setPermission("ee.city", getTeamGroup(player).equals(Group.ADMIN));
             permission.setPermission("ee.chatalways", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.group", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
         }
     }
 

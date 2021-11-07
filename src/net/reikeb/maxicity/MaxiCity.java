@@ -177,6 +177,7 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("setcity", new SpawnCommand(this));
         registerCommand("money", new MoneyCommand(this));
         registerCommand("stopholo", new StopHoloCommand(this));
+        registerCommand("group", new GroupCommand(this));
 
         registerListener(new JoinQuit(this));
         registerListener(new CommandChat());
