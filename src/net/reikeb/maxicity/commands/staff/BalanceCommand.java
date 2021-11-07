@@ -50,7 +50,7 @@ public class BalanceCommand implements CommandExecutor {
                 sender.sendMessage(MaxiCity.chat("&cPlayer " + args[1] + " &dcould not be found!"));
             }
             return true;
-        } else if (args.length == 3) {
+        } else {
             @SuppressWarnings("deprecation")
             int amount = Integer.parseInt(args[2]);
             OfflinePlayer p = Bukkit.getOfflinePlayer(args[1]);

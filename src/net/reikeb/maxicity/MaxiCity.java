@@ -118,7 +118,7 @@ public class MaxiCity extends JavaPlugin {
         /**
          * Load config file
          */
-        getLogger().info("Loading and setting up config files...");
+        getLogger().info("Loading and setting up config files and permissions...");
         if (!new File(this.getDataFolder(), "config.yml").exists()) {
             this.getConfig().set("t_head", "§b§lSome random tab header");
             this.getConfig().set("t_foot", "§1Some random tab footer");

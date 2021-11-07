@@ -112,7 +112,7 @@ public class PlayerManager {
     }
 
     public void setNewPlayer(OfflinePlayer p) {
-        playerDataMap.put(p.getUniqueId(), new PlayerData(false, false, false, false, false));
+        playerDataMap.put(p.getUniqueId(), new PlayerData(false, false, false, false, false, false));
     }
 
     public boolean hasPlayerJoined(OfflinePlayer p) {
@@ -269,6 +269,22 @@ public class PlayerManager {
             return playerDataMap.get(p.getUniqueId()).getTeamGroup();
         } else {
             return null;
+        }
+    }
+
+    /**
+     * Vanish methods
+     */
+    public void setPlayerVanish(OfflinePlayer p, boolean isPlayerVanish) {
+        if (playerDataMap.get(p.getUniqueId()) == null) return;
+        playerDataMap.get(p.getUniqueId()).setPlayerVanished(isPlayerVanish);
+    }
+
+    public boolean isPlayerVanished(OfflinePlayer p) {
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).isPlayerVanished();
+        } else {
+            return false;
         }
     }
 }

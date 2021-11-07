@@ -16,14 +16,16 @@ public class PlayerData {
     private boolean teamChat;
     private Player chatPlayerReply;
     private Group teamGroup;
+    private boolean isPlayerVanished;
 
     public PlayerData(boolean hasPlayerJoined, boolean isPlayerMuted, boolean isPlayerNicked, boolean socialSpy,
-                      boolean teamChat) {
+                      boolean teamChat, boolean isPlayerVanished) {
         this.hasPlayerJoined = hasPlayerJoined;
         this.isPlayerMuted = isPlayerMuted;
         this.isPlayerNicked = isPlayerNicked;
         this.socialSpy = socialSpy;
         this.teamChat = teamChat;
+        this.isPlayerVanished = isPlayerVanished;
     }
 
     public int getBalance() {
@@ -120,5 +122,13 @@ public class PlayerData {
 
     public void setTeamGroup(Group teamGroup) {
         this.teamGroup = teamGroup;
+    }
+
+    public boolean isPlayerVanished() {
+        return this.isPlayerVanished;
+    }
+
+    public void setPlayerVanished(boolean isPlayerVanished) {
+        this.isPlayerVanished = isPlayerVanished;
     }
 }
