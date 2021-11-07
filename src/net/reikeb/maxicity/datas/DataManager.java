@@ -13,7 +13,7 @@ import java.util.logging.Level;
 
 public class DataManager {
 
-    private MaxiCity plugin;
+    private final MaxiCity plugin;
     private FileConfiguration dataConfig = null;
     private File configFile = null;
 

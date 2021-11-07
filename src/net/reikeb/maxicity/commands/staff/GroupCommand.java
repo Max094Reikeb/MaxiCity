@@ -1,6 +1,7 @@
 package net.reikeb.maxicity.commands.staff;
 
 import net.reikeb.maxicity.MaxiCity;
+import net.reikeb.maxicity.misc.Utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -27,7 +28,7 @@ public class GroupCommand implements CommandExecutor {
         File teamsFile = new File(plugin.getDataFolder(), "teams.yml");
         YamlConfiguration yaml = new YamlConfiguration();
         if (!teamsFile.exists())
-            plugin.setupTeamFile();
+            Utils.setupTeamFile(plugin);
 
         if ((args.length == 0) || (args.length >= 4)) {
             sender.sendMessage(MaxiCity.chat("/group <add:remove:move> <player> <group>"));

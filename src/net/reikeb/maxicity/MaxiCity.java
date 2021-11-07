@@ -21,7 +21,7 @@ import net.reikeb.maxicity.datas.PlayerManager;
 import net.reikeb.maxicity.listeners.players.CommandChat;
 import net.reikeb.maxicity.listeners.players.Interact;
 import net.reikeb.maxicity.listeners.players.JoinQuit;
-import net.reikeb.maxicity.misc.CityUtils;
+import net.reikeb.maxicity.misc.Utils;
 import net.reikeb.maxicity.misc.Version;
 
 import org.bukkit.Bukkit;
@@ -31,15 +31,11 @@ import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MaxiCity extends JavaPlugin {
 
@@ -94,7 +90,7 @@ public class MaxiCity extends JavaPlugin {
         /**
          * Check if the version matches
          */
-        version = Version.fromString(CityUtils.version);
+        version = Version.fromString(Utils.version);
         if (version == null) {
             getLogger().warning("This version of MaxiCity is not compatible with your version of Craftbukkit/Paper/Spigot (" + getServer().getVersion() + ")");
             getLogger().warning("Disabling MaxiCity...");
@@ -152,8 +148,8 @@ public class MaxiCity extends JavaPlugin {
         this.data = new DataManager(this);
         playerManager = new PlayerManager(this);
         playerManager.loadHashMap();
-        CityUtils.repeat(this);
-        setupTeamFile();
+        Utils.repeat(this);
+        Utils.setupTeamFile(this);
 
         /**
          * Register commands & listeners
@@ -202,54 +198,5 @@ public class MaxiCity extends JavaPlugin {
     private void registerListener(Listener listener) {
         getLogger().info("Registered listener " + listener.getClass().getSimpleName() + " ✔️");
         getServer().getPluginManager().registerEvents(listener, getInstance());
-    }
-
-    public void setupTeamFile() {
-        File teamsFile = new File(this.getDataFolder(), "teams.yml");
-        if (teamsFile.exists()) return;
-
-        this.saveResource("teams.yml", false);
-
-        YamlConfiguration yaml = new YamlConfiguration();
-        // Section team one
-        yaml.createSection("team_one");
-        List<String> values = new ArrayList<String>();
-        values.add("Goldorion");
-        yaml.set("team_one", values);
-
-        // Section team two
-        yaml.createSection("team_two");
-        List<String> values2 = new ArrayList<String>();
-        values2.add("Klemen");
-        yaml.set("team_two", values2);
-
-        // Section team three
-        yaml.createSection("team_three");
-        List<String> values3 = new ArrayList<String>();
-        values3.add("willpill");
-        yaml.set("team_three", values3);
-
-        // Section team four
-        yaml.createSection("team_four");
-        List<String> values4 = new ArrayList<String>();
-        values4.add("TheFlow_");
-        yaml.set("team_four", values4);
-
-        // Section moderator
-        yaml.createSection("moderators");
-        List<String> valModo = new ArrayList<String>();
-        valModo.add("Nat7123");
-        yaml.set("moderators", valModo);
-
-        // Section admin
-        yaml.createSection("admin");
-        List<String> valAdmin = new ArrayList<String>();
-        valAdmin.add("Max094_Reikeb");
-        yaml.set("admin", valAdmin);
-        try {
-            yaml.save("plugins/MaxiCity/teams.yml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

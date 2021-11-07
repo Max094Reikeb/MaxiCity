@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.misc.CityUtils;
+import net.reikeb.maxicity.misc.Utils;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -43,7 +43,7 @@ public class Interact implements Listener {
             MaxiCity.getInstance().getPlayerManager().addBalanceToPlayer(player, nbrEmeralds);
             player.sendMessage(MaxiCity.chat("&aYou added " + nbrEmeralds + " &aemeralds to your balance!"));
 
-            CityUtils.modifyTeamBalance(player, MaxiCity.getInstance().getConfig(), nbrEmeralds);
+            Utils.modifyTeamBalance(player, MaxiCity.getInstance().getConfig(), nbrEmeralds);
         }
     }
 }

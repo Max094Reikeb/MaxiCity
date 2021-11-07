@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.commands.staff;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.misc.CityUtils;
+import net.reikeb.maxicity.misc.Utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -57,7 +57,7 @@ public class BalanceCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("add")) {
                 if (p.isOnline()) {
                     plugin.getPlayerManager().addBalanceToPlayer(p, amount);
-                    CityUtils.modifyTeamBalance((Player) p, plugin.getConfig(), amount);
+                    Utils.modifyTeamBalance((Player) p, plugin.getConfig(), amount);
                     sender.sendMessage(MaxiCity.chat("&aYou have successfully added " + args[2] + " &aemeralds to player " + p.getName()));
                 } else {
                     sender.sendMessage(MaxiCity.chat("&cPlayer " + args[1] + " &ccould not be found"));
@@ -66,7 +66,7 @@ public class BalanceCommand implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("remove")) {
                 if (p.isOnline()) {
                     plugin.getPlayerManager().removeBalanceFromPlayer(p, amount);
-                    CityUtils.modifyTeamBalance((Player) p, plugin.getConfig(), -amount);
+                    Utils.modifyTeamBalance((Player) p, plugin.getConfig(), -amount);
                     sender.sendMessage(MaxiCity.chat("&aYou have successfully removed " + args[2] + " &aemeralds from player " + p.getName()));
                 } else {
                     sender.sendMessage(MaxiCity.chat("&cPlayer " + args[1] + " &ccould not be found "));
@@ -76,7 +76,7 @@ public class BalanceCommand implements CommandExecutor {
                 if (p.isOnline()) {
                     int before = plugin.getPlayerManager().getPlayerBalance(p);
                     plugin.getPlayerManager().setPlayerBalance(p, amount);
-                    CityUtils.modifyTeamBalance((Player) p, plugin.getConfig(), (amount - before));
+                    Utils.modifyTeamBalance((Player) p, plugin.getConfig(), (amount - before));
                     sender.sendMessage(MaxiCity.chat("&aYou have successfully set " + p.getName() + "&a's balance to " + args[2] + " &aemeralds"));
                 } else {
                     sender.sendMessage(MaxiCity.chat("&cPlayer " + args[1] + " &ccould not be found"));

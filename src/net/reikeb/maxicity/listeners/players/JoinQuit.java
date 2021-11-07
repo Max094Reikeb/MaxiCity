@@ -1,23 +1,17 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.datas.Group;
 import net.reikeb.maxicity.datas.PlayerManager;
+import net.reikeb.maxicity.misc.Utils;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-
-import java.io.File;
-import java.io.IOException;
 
 public class JoinQuit implements Listener {
 
@@ -34,8 +28,9 @@ public class JoinQuit implements Listener {
         PlayerManager manager = this.plugin.getPlayerManager();
 
         if (!manager.hasPlayerJoined(player)) manager.setNewPlayer(player);
-        setupTeams(manager);
+        Utils.setupTeams(plugin, manager);
 
+        manager.setPlayerVanish(player, false);
         manager.setPlayerTeamChat(player, false);
         manager.setPlayerSocialSpy(player, false);
 
@@ -84,66 +79,6 @@ public class JoinQuit implements Listener {
         } else if (player.hasPermission("team.four")) {
             manager.setPlayerTeam(player, config.getString("fourth_team"));
             manager.setPlayerTeamList(player, config.getString("fourth_team_list"));
-        }
-    }
-
-    private void setupTeams(PlayerManager manager) {
-        File teamsFile = new File(this.plugin.getDataFolder(), "teams.yml");
-        if (!teamsFile.exists())
-            this.plugin.setupTeamFile();
-        YamlConfiguration yaml = new YamlConfiguration();
-        try {
-            yaml.load(teamsFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-        if (yaml.getString("team_one") != null) {
-            for (String str : yaml.getString("team_one").split("\\s*,\\s*")) {
-                String playerName = str.substring(1, (str.length() - 1));
-                if (Bukkit.getPlayer(playerName) != null) {
-                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.TEAM_ONE);
-                }
-            }
-        }
-        if (yaml.getString("team_two") != null) {
-            for (String str : yaml.getString("team_two").split("\\s*,\\s*")) {
-                String playerName = str.substring(1, (str.length() - 1));
-                if (Bukkit.getPlayer(playerName) != null) {
-                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.TEAM_TWO);
-                }
-            }
-        }
-        if (yaml.getString("team_three") != null) {
-            for (String str : yaml.getString("team_three").split("\\s*,\\s*")) {
-                String playerName = str.substring(1, (str.length() - 1));
-                if (Bukkit.getPlayer(playerName) != null) {
-                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.TEAM_THREE);
-                }
-            }
-        }
-        if (yaml.getString("team_four") != null) {
-            for (String str : yaml.getString("team_four").split("\\s*,\\s*")) {
-                String playerName = str.substring(1, (str.length() - 1));
-                if (Bukkit.getPlayer(playerName) != null) {
-                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.TEAM_FOUR);
-                }
-            }
-        }
-        if (yaml.getString("moderators") != null) {
-            for (String str : yaml.getString("moderators").split("\\s*,\\s*")) {
-                String playerName = str.substring(1, (str.length() - 1));
-                if (Bukkit.getPlayer(playerName) != null) {
-                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.MODERATOR);
-                }
-            }
-        }
-        if (yaml.getString("admin") != null) {
-            for (String str : yaml.getString("admin").split("\\s*,\\s*")) {
-                String playerName = str.substring(1, (str.length() - 1));
-                if (Bukkit.getPlayer(playerName) != null) {
-                    manager.setTeamGroup(Bukkit.getPlayer(playerName), Group.ADMIN);
-                }
-            }
         }
     }
 
