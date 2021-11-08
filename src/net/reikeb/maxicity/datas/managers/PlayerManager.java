@@ -1,7 +1,9 @@
-package net.reikeb.maxicity.datas;
+package net.reikeb.maxicity.datas.managers;
 
 import net.reikeb.maxicity.MaxiCity;
 
+import net.reikeb.maxicity.datas.Group;
+import net.reikeb.maxicity.datas.PlayerData;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;

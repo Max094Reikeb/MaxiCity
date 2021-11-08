@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.commands.regular;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.datas.PlayerManager;
+import net.reikeb.maxicity.datas.managers.PlayerManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

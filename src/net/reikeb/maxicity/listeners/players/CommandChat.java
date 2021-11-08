@@ -1,7 +1,7 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
-import net.reikeb.maxicity.datas.PlayerManager;
+import net.reikeb.maxicity.datas.managers.PlayerManager;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

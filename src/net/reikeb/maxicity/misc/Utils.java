@@ -3,7 +3,7 @@ package net.reikeb.maxicity.misc;
 import net.reikeb.maxicity.MaxiCity;
 import net.reikeb.maxicity.commands.staff.HologramCommand;
 import net.reikeb.maxicity.datas.Group;
-import net.reikeb.maxicity.datas.PlayerManager;
+import net.reikeb.maxicity.datas.managers.PlayerManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;

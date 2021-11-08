@@ -1,4 +1,4 @@
-package net.reikeb.maxicity.datas;
+package net.reikeb.maxicity.datas.managers;
 
 import net.reikeb.maxicity.MaxiCity;
 
