@@ -16,7 +16,6 @@ import net.reikeb.maxicity.commands.staff.*;
 import net.reikeb.maxicity.commands.staff.mute.MuteCommand;
 import net.reikeb.maxicity.commands.staff.mute.ReasonMuteCommand;
 import net.reikeb.maxicity.commands.staff.mute.UnmuteCommand;
-import net.reikeb.maxicity.datas.managers.DataManager;
 import net.reikeb.maxicity.datas.managers.PlayerManager;
 import net.reikeb.maxicity.listeners.players.CommandChat;
 import net.reikeb.maxicity.listeners.players.Interact;
@@ -43,7 +42,6 @@ public class MaxiCity extends JavaPlugin {
     public static Version version;
 
     public FileConfiguration config;
-    public DataManager data;
     public static PlayerManager playerManager;
 
     public PlayerManager getPlayerManager() {
@@ -145,7 +143,6 @@ public class MaxiCity extends JavaPlugin {
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
 
-        this.data = new DataManager(this);
         playerManager = new PlayerManager(this);
         playerManager.loadHashMap();
         Utils.repeat(this);
