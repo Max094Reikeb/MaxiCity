@@ -52,8 +52,8 @@ public class JoinQuit implements Listener {
                 player.setDisplayName(manager.getPlayerTeam(player) + manager.getPlayerNickname(player));
                 player.setPlayerListName(manager.getPlayerTeam(player) + manager.getPlayerNickname(player));
             } else {
-                player.setDisplayName(manager.getPlayerTeam(player) + player.getDisplayName());
-                player.setPlayerListName(manager.getPlayerTeam(player) + player.getDisplayName());
+                player.setDisplayName(manager.getPlayerTeam(player) + player.getName());
+                player.setPlayerListName(manager.getPlayerTeam(player) + player.getName());
             }
         }
 

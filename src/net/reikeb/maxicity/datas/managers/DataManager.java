@@ -24,10 +24,10 @@ public class DataManager {
 
     public void reloadConfig() {
         if (this.configFile == null)
-            this.configFile = new File(this.plugin.getDataFolder(), "data.yml");
+            this.configFile = new File(this.plugin.getDataFolder(), "areas.yml");
         this.dataConfig = YamlConfiguration.loadConfiguration(this.configFile);
 
-        InputStream defaultStream = this.plugin.getResource("data.yml");
+        InputStream defaultStream = this.plugin.getResource("areas.yml");
         if (defaultStream != null) {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultStream));
             this.dataConfig.setDefaults(defaultConfig);
@@ -53,10 +53,10 @@ public class DataManager {
 
     public void saveDefaultConfig() {
         if (this.configFile == null)
-            this.configFile = new File(this.plugin.getDataFolder(), "data.yml");
+            this.configFile = new File(this.plugin.getDataFolder(), "areas.yml");
 
         if (!this.configFile.exists()) {
-            this.plugin.saveResource("data.yml", false);
+            this.plugin.saveResource("areas.yml", false);
         }
     }
 }

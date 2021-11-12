@@ -1,9 +1,11 @@
 package net.reikeb.maxicity.datas.managers;
 
 import net.reikeb.maxicity.MaxiCity;
-
+import net.reikeb.maxicity.datas.Area;
 import net.reikeb.maxicity.datas.Group;
 import net.reikeb.maxicity.datas.PlayerData;
+
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
@@ -12,8 +14,8 @@ import java.util.*;
 
 public class PlayerManager {
 
-    public static final HashMap<UUID, PlayerData> playerDataMap = new HashMap<UUID, PlayerData>();
-    public static final HashMap<UUID, PermissionAttachment> playerPermissions = new HashMap<UUID, PermissionAttachment>();
+    public final HashMap<UUID, PlayerData> playerDataMap = new HashMap<UUID, PlayerData>();
+    public final HashMap<UUID, PermissionAttachment> playerPermissions = new HashMap<UUID, PermissionAttachment>();
     public MaxiCity plugin;
 
     public PlayerManager(MaxiCity plugin) {
@@ -80,6 +82,8 @@ public class PlayerManager {
             permission.setPermission("ee.city", getTeamGroup(player).equals(Group.ADMIN));
             permission.setPermission("ee.chatalways", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
             permission.setPermission("ee.group", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.area", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
+            permission.setPermission("ee.loc", getTeamGroup(player).equals(Group.MODERATOR) || getTeamGroup(player).equals(Group.ADMIN));
         }
     }
 
@@ -287,6 +291,51 @@ public class PlayerManager {
             return playerDataMap.get(p.getUniqueId()).isPlayerVanished();
         } else {
             return false;
+        }
+    }
+
+    /**
+     * Area method
+     */
+    public void setPlayerArea(OfflinePlayer p, Area area) {
+        if (playerDataMap.get(p.getUniqueId()) == null) return;
+        playerDataMap.get(p.getUniqueId()).setArea(area);
+    }
+
+    public Area getPlayerArea(OfflinePlayer p) {
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).getArea();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Location method
+     */
+    public void setPlayerLocation1(OfflinePlayer p, Location loc1) {
+        if (playerDataMap.get(p.getUniqueId()) == null) return;
+        playerDataMap.get(p.getUniqueId()).setLoc1(loc1);
+    }
+
+    public Location getPlayerLocation1(OfflinePlayer p) {
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).getLoc1();
+        } else {
+            return null;
+        }
+    }
+
+    public void setPlayerLocation2(OfflinePlayer p, Location loc2) {
+        if (playerDataMap.get(p.getUniqueId()) == null) return;
+        playerDataMap.get(p.getUniqueId()).setLoc2(loc2);
+    }
+
+    public Location getPlayerLocation2(OfflinePlayer p) {
+        if (playerDataMap.get(p.getUniqueId()) != null) {
+            return playerDataMap.get(p.getUniqueId()).getLoc2();
+        } else {
+            return null;
         }
     }
 }

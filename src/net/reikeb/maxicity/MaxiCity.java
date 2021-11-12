@@ -1,11 +1,5 @@
 package net.reikeb.maxicity;
 
-/**
- * AntiCooldown
- * WorldEdit
- * WorldGuard
- */
-
 import net.reikeb.maxicity.commands.regular.CityCommand;
 import net.reikeb.maxicity.commands.regular.MoneyCommand;
 import net.reikeb.maxicity.commands.regular.PluginsOverrideCommand;
@@ -16,6 +10,7 @@ import net.reikeb.maxicity.commands.staff.*;
 import net.reikeb.maxicity.commands.staff.mute.MuteCommand;
 import net.reikeb.maxicity.commands.staff.mute.ReasonMuteCommand;
 import net.reikeb.maxicity.commands.staff.mute.UnmuteCommand;
+import net.reikeb.maxicity.datas.managers.AreaManager;
 import net.reikeb.maxicity.datas.managers.PlayerManager;
 import net.reikeb.maxicity.listeners.players.CommandChat;
 import net.reikeb.maxicity.listeners.players.Interact;
@@ -43,9 +38,14 @@ public class MaxiCity extends JavaPlugin {
 
     public FileConfiguration config;
     public static PlayerManager playerManager;
+    public static AreaManager areaManager;
 
     public PlayerManager getPlayerManager() {
         return playerManager;
+    }
+
+    public AreaManager getAreaManager() {
+        return areaManager;
     }
 
     public static MaxiCity getInstance() {
@@ -72,6 +72,7 @@ public class MaxiCity extends JavaPlugin {
          */
         getLogger().info("Saving config files...");
         playerManager.saveHashMap();
+        areaManager.saveHashMap();
 
         /**
          * Disabling custom permissions
@@ -144,7 +145,10 @@ public class MaxiCity extends JavaPlugin {
         this.saveConfig();
 
         playerManager = new PlayerManager(this);
+        areaManager = new AreaManager(this);
         playerManager.loadHashMap();
+        areaManager.loadHashMap();
+
         Utils.repeat(this);
         Utils.setupTeamFile(this);
 
@@ -171,6 +175,7 @@ public class MaxiCity extends JavaPlugin {
         registerCommand("money", new MoneyCommand(this));
         registerCommand("stopholo", new StopHoloCommand(this));
         registerCommand("group", new GroupCommand(this));
+        registerCommand("area", new AreaCommand(this));
 
         registerListener(new JoinQuit(this));
         registerListener(new CommandChat());

@@ -1,5 +1,6 @@
 package net.reikeb.maxicity.datas;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class PlayerData {
@@ -17,6 +18,9 @@ public class PlayerData {
     private Player chatPlayerReply;
     private Group teamGroup;
     private boolean isPlayerVanished;
+    private Area area;
+    private Location loc1;
+    private Location loc2;
 
     public PlayerData(boolean hasPlayerJoined, boolean isPlayerMuted, boolean isPlayerNicked, boolean socialSpy,
                       boolean teamChat, boolean isPlayerVanished) {
@@ -130,5 +134,29 @@ public class PlayerData {
 
     public void setPlayerVanished(boolean isPlayerVanished) {
         this.isPlayerVanished = isPlayerVanished;
+    }
+
+    public Area getArea() {
+        return this.area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public Location getLoc1() {
+        return this.loc1;
+    }
+
+    public void setLoc1(Location loc1) {
+        this.loc1 = loc1;
+    }
+
+    public Location getLoc2() {
+        return this.loc2;
+    }
+
+    public void setLoc2(Location loc2) {
+        this.loc2 = loc2;
     }
 }

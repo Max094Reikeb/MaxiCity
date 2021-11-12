@@ -91,6 +91,11 @@ commands:
     usage: /group <add:remove:move> <player> <group>
     permission: ee.group
     permission-message: &cYou do not have permission to execute this command!
+  area:
+    description: Manages areas
+    usage: /area <new:remove:set:add:info> <name> [<owner:coowner>] [<player>]
+    permission: ee.area
+    permission-message: You do not have permission to execute this command!
 
 permissions:
   ee.balance:
@@ -132,6 +137,12 @@ permissions:
   ee.group:
     description: Allows you to manage groups
     default: op
+  ee.area:
+    description: Allows you to manage areas
+    default: op
+  ee.loc:
+    description: Allows you to select locations
+    default: op
   ee.*:
     default: false
     children:
@@ -148,6 +159,8 @@ permissions:
       ee.city: false
       ee.chatalways: false
       ee.group: false
+      ee.area: false
+      ee.loc: false
   team.one:
     description: Belong to team one
     default: false

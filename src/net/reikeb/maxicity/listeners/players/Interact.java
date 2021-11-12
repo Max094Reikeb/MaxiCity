@@ -1,12 +1,16 @@
 package net.reikeb.maxicity.listeners.players;
 
 import net.reikeb.maxicity.MaxiCity;
+import net.reikeb.maxicity.datas.managers.AreaManager;
+import net.reikeb.maxicity.datas.managers.PlayerManager;
 import net.reikeb.maxicity.misc.Utils;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -15,12 +19,32 @@ public class Interact implements Listener {
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (event.getHand() != EquipmentSlot.HAND) return;
-        if (event.getClickedBlock() == null) return;
-        if (event.getClickedBlock().getType() != Material.LECTERN) return;
-        // Check if player is in the correct region
+        Player player = event.getPlayer();
+        AreaManager areaManager = MaxiCity.getInstance().getAreaManager();
+        PlayerManager playerManager = MaxiCity.getInstance().getPlayerManager();
 
-        giveEmeralds(event.getPlayer());
+        if (event.getHand() == EquipmentSlot.HAND) {
+            if (event.getClickedBlock() != null) {
+                if (event.getClickedBlock().getType() == Material.LECTERN) {
+                    if (areaManager.isPlayerInArea(player, "spawn")) {
+                        giveEmeralds(player);
+                    }
+                }
+                if (player.getItemInHand().getType() == Material.WOODEN_AXE) {
+                    if (player.getGameMode() != GameMode.CREATIVE) return;
+                    if (!player.hasPermission("ee.loc")) return;
+                    if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+                        event.setCancelled(true);
+                        playerManager.setPlayerLocation1(player, event.getClickedBlock().getLocation());
+                        player.sendMessage(MaxiCity.chat("&aPosition 1 set!"));
+                    } else if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                        event.setCancelled(true);
+                        playerManager.setPlayerLocation2(player, event.getClickedBlock().getLocation());
+                        player.sendMessage(MaxiCity.chat("&aPosition 2 set!"));
+                    }
+                }
+            }
+        }
     }
 
     public static void giveEmeralds(Player player) {
