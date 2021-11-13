@@ -14,7 +14,7 @@ commands:
     description: Manages a player's balance
     usage: /balance <balance:add:remove:set> <player> [<amount>]
     permission: ee.balance
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   teamchat:
     description: Manages your team chat
     usage: /teamchat
@@ -22,47 +22,47 @@ commands:
     description: Allows you to spy on people's commands
     usage: /socialspy
     permission: ee.socialspy
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   holo:
     description: Setups the score hologram
     usage: /holo <create:set:reload:delete>
     permission: ee.hologram
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   mute:
     description: Mutes a player
     usage: /mute <player> [<reason>]
     permission: ee.mute
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   unmute:
     description: Unmutes a player
     usage: /unmute <player>
     permission: ee.unmute
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   mutereason:
     description: Shows the mute reason of a player
     usage: /mutereason <player>
     permission: ee.showmute
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   vanish:
     description: Hides you from other players
     usage: /vanish
     permission: ee.vanish
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   broadcast:
     description: Broadcasts a message
     usage: /broadcast <message>
     permission: ee.broadcast
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   chat:
     description: Changes the chat status
     usage: /chat <on:off>
     permission: ee.chat
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   emeraldreset:
     description: Resets all the emeralds
     usage: /emeraldreset
     permission: ee.reset
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   msg:
     description: Sends a private message to a user
     aliases: [w, tell]
@@ -77,7 +77,7 @@ commands:
     description: Modifies the location of the city
     usage: /setcity
     permission: ee.city
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   money:
     description: Show your balance
     usage: /money
@@ -85,12 +85,12 @@ commands:
     description: Stops hologram from reloading every 5 minutes
     usage: /stopholo
     permission: ee.hologram
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   group:
     description: Manages groups
     usage: /group <add:remove:move> <player> <group>
     permission: ee.group
-    permission-message: &cYou do not have permission to execute this command!
+    permission-message: You do not have permission to execute this command!
   area:
     description: Manages areas
     usage: /area <new:remove:set:add:info> <name> [<owner:coowner>] [<player>]
