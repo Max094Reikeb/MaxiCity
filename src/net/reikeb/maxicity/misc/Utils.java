@@ -61,6 +61,40 @@ public class Utils {
     }
 
     /**
+     * Method that setups the config file "config.yml"
+     *
+     * @param plugin MaxiCity plugin class
+     * @param config FileConfiguration of the plugin
+     */
+    public static void setupConfigFile(MaxiCity plugin, FileConfiguration config) {
+        File file = new File(plugin.getDataFolder(), "config.yml");
+        if (!file.exists()) {
+            config.set("t_head", "§b§lSome random tab header");
+            config.set("t_foot", "§1Some random tab footer");
+            config.set("first_join_message", "&ajoined the city for the first time! Welcome");
+            config.set("join_message", "&aWelcome back to the city");
+            config.set("cite_coos_message", "&aThe city is located in: ");
+            World world = plugin.getServer().getWorld("world");
+            if (world != null)
+                config.set("cite_coos", world.getSpawnLocation());
+            config.set("main_world", "world");
+            config.set("holo_reload", true);
+            config.set("admin", "&4[Admin] ");
+            config.set("admin_list", "§4[Admin] ");
+            config.set("moderator", "&6[Moderator] ");
+            config.set("moderator_list", "§6[Moderator] ");
+            config.set("first_team", "&2[Team One] ");
+            config.set("first_team_list", "§2[Team One] ");
+            config.set("second_team", "&e[Team Two] ");
+            config.set("second_team_list", "§e[Team Two] ");
+            config.set("third_team", "&3[Team Three] ");
+            config.set("third_team_list", "§3[Team Three] ");
+            config.set("fourth_team", "&d[Team Four] ");
+            config.set("fourth_team_list", "§d[Team Four] ");
+        }
+    }
+
+    /**
      * Method that gives a Group to a player depending on the team.yml file
      *
      * @param plugin  The MaxiCity plugin class

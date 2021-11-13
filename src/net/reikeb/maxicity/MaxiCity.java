@@ -21,15 +21,12 @@ import net.reikeb.maxicity.misc.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
-import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 public class MaxiCity extends JavaPlugin {
 
@@ -114,30 +111,9 @@ public class MaxiCity extends JavaPlugin {
          * Load config file
          */
         getLogger().info("Loading and setting up config files and permissions...");
-        if (!new File(this.getDataFolder(), "config.yml").exists()) {
-            this.getConfig().set("t_head", "§b§lSome random tab header");
-            this.getConfig().set("t_foot", "§1Some random tab footer");
-            this.getConfig().set("first_join_message", "&ajoined the city for the first time! Welcome");
-            this.getConfig().set("join_message", "&aWelcome back to the city");
-            this.getConfig().set("cite_coos_message", "&aThe city is located in: ");
-            World world = this.getServer().getWorld("world");
-            if (world != null)
-                this.getConfig().set("cite_coos", world.getSpawnLocation());
-            this.getConfig().set("main_world", "world");
-            this.getConfig().set("holo_reload", true);
-            this.getConfig().set("admin", "&4[Admin] ");
-            this.getConfig().set("admin_list", "§4[Admin] ");
-            this.getConfig().set("moderator", "&6[Moderator] ");
-            this.getConfig().set("moderator_list", "§6[Moderator] ");
-            this.getConfig().set("first_team", "&2[Naboo] ");
-            this.getConfig().set("first_team_list", "§2[Naboo] ");
-            this.getConfig().set("second_team", "&e[Tatooine] ");
-            this.getConfig().set("second_team_list", "§e[Tatooine] ");
-            this.getConfig().set("third_team", "&3[Alderaan] ");
-            this.getConfig().set("third_team_list", "§3[Alderaan] ");
-            this.getConfig().set("fourth_team", "&d[Coruscant] ");
-            this.getConfig().set("fourth_team_list", "§d[Coruscant] ");
-        }
+        Utils.setupConfigFile(this, this.getConfig());
+        Utils.setupTeamFile(this);
+        Utils.repeat(this);
         this.getConfig().set("chat_enabled", true);
         this.saveConfig();
         reloadConfig();
@@ -148,9 +124,6 @@ public class MaxiCity extends JavaPlugin {
         areaManager = new AreaManager(this);
         playerManager.loadHashMap();
         areaManager.loadHashMap();
-
-        Utils.repeat(this);
-        Utils.setupTeamFile(this);
 
         /**
          * Register commands & listeners
