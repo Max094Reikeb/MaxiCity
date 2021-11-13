@@ -4,11 +4,14 @@ import net.reikeb.maxicity.MaxiCity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-public class ReplyCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReplyCommand implements TabExecutor {
 
     MaxiCity plugin;
 
@@ -40,5 +43,14 @@ public class ReplyCommand implements CommandExecutor {
             target.sendMessage(MaxiCity.chat("&e[&6" + user.getName() + "&e &e» &6me&e] " + message.toString().trim()));
         }
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        List<String> lis = new ArrayList<>();
+        if (args.length == 1) {
+            lis.add("message");
+        }
+        return lis;
     }
 }

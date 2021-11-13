@@ -7,14 +7,16 @@ import net.reikeb.maxicity.MaxiCity;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-public class HologramCommand implements CommandExecutor {
+public class HologramCommand implements TabExecutor {
 
     public MaxiCity plugin;
 
@@ -74,5 +76,17 @@ public class HologramCommand implements CommandExecutor {
         hologram.appendTextLine(MaxiCity.chat("Tatooine : " + config.getInt("tatooine_balance") + " emeralds"));
         hologram.appendTextLine(MaxiCity.chat("Alderaan : " + config.getInt("alderaan_balance") + " emeralds"));
         hologram.appendTextLine(MaxiCity.chat("Coruscant : " + config.getInt("coruscant_balance") + " emeralds"));
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        List<String> lis = new ArrayList<>();
+        if (args.length == 1) {
+            lis.add("create");
+            lis.add("set");
+            lis.add("reload");
+            lis.add("delete");
+        }
+        return lis;
     }
 }

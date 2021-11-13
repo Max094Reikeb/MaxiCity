@@ -6,16 +6,17 @@ import net.reikeb.maxicity.misc.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class GroupCommand implements CommandExecutor {
+public class GroupCommand implements TabExecutor {
 
     MaxiCity plugin;
 
@@ -122,5 +123,27 @@ public class GroupCommand implements CommandExecutor {
         }
 
         return flag;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        List<String> lis = new ArrayList<>();
+        if (args.length == 1) {
+            lis.add("add");
+            lis.add("remove");
+            lis.add("move");
+        } else if (args.length == 2) {
+            for (Player p : plugin.getServer().getOnlinePlayers()) {
+                lis.add(p.getName());
+            }
+        } else if (args.length == 3) {
+            lis.add("team_one");
+            lis.add("team_two");
+            lis.add("team_three");
+            lis.add("team_four");
+            lis.add("moderators");
+            lis.add("admin");
+        }
+        return lis;
     }
 }

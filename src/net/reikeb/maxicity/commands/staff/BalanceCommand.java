@@ -6,11 +6,14 @@ import net.reikeb.maxicity.misc.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-public class BalanceCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class BalanceCommand implements TabExecutor {
 
     MaxiCity plugin;
 
@@ -85,5 +88,23 @@ public class BalanceCommand implements CommandExecutor {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        List<String> lis = new ArrayList<>();
+        if (args.length == 1) {
+            lis.add("balance");
+            lis.add("add");
+            lis.add("remove");
+            lis.add("set");
+        } else if (args.length == 2) {
+            for (Player p : plugin.getServer().getOnlinePlayers()) {
+                lis.add(p.getName());
+            }
+        } else if (args.length == 3 && (!args[0].equalsIgnoreCase("balance"))) {
+            lis.add("count");
+        }
+        return lis;
     }
 }

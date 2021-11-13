@@ -4,11 +4,14 @@ import net.reikeb.maxicity.MaxiCity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-public class MsgCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MsgCommand implements TabExecutor {
 
     MaxiCity plugin;
 
@@ -42,5 +45,18 @@ public class MsgCommand implements CommandExecutor {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
+        List<String> lis = new ArrayList<>();
+        if (args.length == 1) {
+            for (Player p : plugin.getServer().getOnlinePlayers()) {
+                lis.add(p.getName());
+            }
+        } else if (args.length == 2) {
+            lis.add("message");
+        }
+        return lis;
     }
 }
