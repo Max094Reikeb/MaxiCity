@@ -80,13 +80,15 @@ public class AreaManager {
         return null;
     }
 
-    public void removeAreaCoOwner(OfflinePlayer player, String areaName) {
+    public boolean removeAreaCoOwner(OfflinePlayer player, String areaName) {
         if (doesAreaExist(areaName)) {
             List<UUID> coOwners = areaMap.get(areaName).getCoOwners();
-            if (!coOwners.contains(player.getUniqueId())) return;
+            if (!coOwners.contains(player.getUniqueId())) return false;
             coOwners.remove(player.getUniqueId());
             areaMap.get(areaName).setCoOwners(coOwners);
+            return true;
         }
+        return false;
     }
 
     public void removeAreaFromName(String name) {

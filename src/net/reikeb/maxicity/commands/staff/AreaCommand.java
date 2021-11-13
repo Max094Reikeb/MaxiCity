@@ -6,7 +6,9 @@ import net.reikeb.maxicity.datas.managers.PlayerManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.*;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class AreaCommand implements TabExecutor {
                 sender.sendMessage(MaxiCity.chat("/area <new> <name>"));
                 return true;
             } else if (args[0].equalsIgnoreCase("remove")) {
-                sender.sendMessage(MaxiCity.chat("/area <remove> <name>"));
+                sender.sendMessage(MaxiCity.chat("/area <remove> <name> [<coowner>] [<player>]"));
                 return true;
             } else if (args[0].equalsIgnoreCase("set")) {
                 sender.sendMessage(MaxiCity.chat("/area <set> <name> <owner> <player>"));
@@ -73,11 +75,15 @@ public class AreaCommand implements TabExecutor {
                     sender.sendMessage(MaxiCity.chat("&2Name: &c" + args[1]));
                     sender.sendMessage(MaxiCity.chat("&2Owner: &c" + owner.getName()));
                     if (coOwners != null) {
-                        sender.sendMessage(MaxiCity.chat("&2Co-owners: &c" + coOwners));
+                        if (coOwners.isEmpty()) {
+                            sender.sendMessage(MaxiCity.chat("&2Co-owners: &cNone"));
+                        } else {
+                            sender.sendMessage(MaxiCity.chat("&2Co-owners: &c" + coOwners));
+                        }
                     } else {
                         sender.sendMessage(MaxiCity.chat("&2Co-owners: &cNone"));
                     }
-                    sender.sendMessage(MaxiCity.chat("&2================="));
+                    sender.sendMessage(MaxiCity.chat("&2================"));
                 } else {
                     sender.sendMessage(MaxiCity.chat("&cThe area '" + args[1] + "&c' does not exist!"));
                 }
@@ -90,6 +96,8 @@ public class AreaCommand implements TabExecutor {
             } else if (args[0].equalsIgnoreCase("add")) {
                 sender.sendMessage(MaxiCity.chat("/area <add> <name> <coowner> <player>"));
                 return true;
+            } else if (args[0].equalsIgnoreCase("remove")) {
+                sender.sendMessage(MaxiCity.chat("/area <remove> <name> <coowner> <player>"));
             }
             return true;
         } else {
@@ -125,6 +133,24 @@ public class AreaCommand implements TabExecutor {
                     sender.sendMessage(MaxiCity.chat("&cThe area '" + args[1] + "&c' does not exist!"));
                 }
                 return true;
+            } else if (args[0].equalsIgnoreCase("remove")) {
+                if (areaManager.doesAreaExist(args[1])) {
+                    OfflinePlayer p = Bukkit.getOfflinePlayer(args[3]);
+                    if (args[2].equalsIgnoreCase("coowner")) {
+                        if (p.isOnline()) {
+                            if (areaManager.removeAreaCoOwner(p, args[1])) {
+                                sender.sendMessage(MaxiCity.chat("&aYou have removed " + p.getName() + " &afrom coowner list of area '" + args[1] + "&a'!"));
+                            } else {
+                                sender.sendMessage(MaxiCity.chat("&cPlayer " + p.getName() + " &cis not a coowner of area '" + args[1] + "&a'!"));
+                            }
+                            return true;
+                        }
+                    }
+                    sender.sendMessage(MaxiCity.chat("/area <remove> <name> <coowner> <player>"));
+                    return true;
+                } else {
+                    sender.sendMessage(MaxiCity.chat("&cThe area '" + args[1] + "&c' does not exist!"));
+                }
             }
         }
         return true;
@@ -144,7 +170,7 @@ public class AreaCommand implements TabExecutor {
         } else if (args.length == 3) {
             if (args[0].equalsIgnoreCase("set")) {
                 lis.add("owner");
-            } else if (args[0].equalsIgnoreCase("add")) {
+            } else if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("remove")) {
                 lis.add("coowner");
             }
         } else if (args.length == 4) {
