@@ -79,7 +79,7 @@ commands:
     permission: ee.city
     permission-message: You do not have permission to execute this command!
   money:
-    description: Show your balance
+    description: Shows your balance
     usage: /money
   stopholo:
     description: Stops hologram from reloading every 5 minutes
@@ -93,7 +93,7 @@ commands:
     permission-message: You do not have permission to execute this command!
   area:
     description: Manages areas
-    usage: /area <new:remove:set:add:info> <name> [<owner:coowner>] [<player>]
+    usage: /area <new:remove:set:add:info> <name> [<owner:coowner:pvp:redstone>] [<player:true:false>]
     permission: ee.area
     permission-message: You do not have permission to execute this command!
 

@@ -3,6 +3,7 @@ package net.reikeb.maxicity.misc;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -104,6 +105,10 @@ public class Cuboid {
 
     public boolean isIn(final Player player) {
         return this.isIn(player.getLocation());
+    }
+
+    public boolean isIn(final LivingEntity entity) {
+        return this.isIn(entity.getLocation());
     }
 
     public boolean isInWithMarge(final Location loc, final double marge) {

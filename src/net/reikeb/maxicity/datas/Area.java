@@ -18,23 +18,29 @@ public class Area implements Cloneable, ConfigurationSerializable {
     private UUID owner;
     private List<UUID> coOwners;
     private Cuboid cuboid;
+    private boolean pvp;
+    private boolean redstone;
 
-    public Area(Location upCorner, Location downCorner, String name, UUID owner, List<UUID> coOwners) {
+    public Area(Location upCorner, Location downCorner, String name, UUID owner, List<UUID> coOwners, boolean pvp, boolean redstone) {
         this.upCorner = upCorner;
         this.downCorner = downCorner;
         this.name = name;
         this.owner = owner;
         this.coOwners = coOwners;
         this.cuboid = new Cuboid(upCorner, downCorner);
+        this.pvp = pvp;
+        this.redstone = redstone;
     }
 
-    public Area(Location upCorner, Location downCorner, String name, UUID owner, List<UUID> coOwners, Cuboid cuboid) {
+    public Area(Location upCorner, Location downCorner, String name, UUID owner, List<UUID> coOwners, Cuboid cuboid, boolean pvp, boolean redstone) {
         this.upCorner = upCorner;
         this.downCorner = downCorner;
         this.name = name;
         this.owner = owner;
         this.coOwners = coOwners;
         this.cuboid = cuboid;
+        this.pvp = pvp;
+        this.redstone = redstone;
     }
 
     public Location getUpCorner() {
@@ -81,6 +87,22 @@ public class Area implements Cloneable, ConfigurationSerializable {
         return this.cuboid;
     }
 
+    public void setPvp(boolean pvp) {
+        this.pvp = pvp;
+    }
+
+    public boolean isPvpActive() {
+        return this.pvp;
+    }
+
+    public void setRedstone(boolean redstone) {
+        this.redstone = redstone;
+    }
+
+    public boolean isRedstoneActive() {
+        return this.redstone;
+    }
+
     public Area clone() {
         try {
             return (Area) super.clone();
@@ -97,10 +119,12 @@ public class Area implements Cloneable, ConfigurationSerializable {
         data.put("owner", this.owner);
         data.put("coOwners", this.coOwners);
         data.put("cuboid", this.cuboid);
+        data.put("pvp", this.pvp);
+        data.put("redstone", this.redstone);
         return data;
     }
 
     public static Area deserialize(Map<String, Object> args) {
-        return new Area((Location) args.get("upCorner"), (Location) args.get("downCorner"), (String) args.get("name"), (UUID) args.get("owner"), (List<UUID>) args.get("coOwners"), (Cuboid) args.get("cuboid"));
+        return new Area((Location) args.get("upCorner"), (Location) args.get("downCorner"), (String) args.get("name"), (UUID) args.get("owner"), (List<UUID>) args.get("coOwners"), (Cuboid) args.get("cuboid"), (boolean) args.get("pvp"), (boolean) args.get("redstone"));
     }
 }
